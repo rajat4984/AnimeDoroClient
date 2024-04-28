@@ -1,0 +1,27 @@
+@import '../base/_breakpoints';
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+
+  .nav-links {
+    display: flex;
+    align-self: flex-end;
+
+    & > div {
+      margin: 0 0.3em;
+    }
+
+    .desktop-links {
+      display: none;
+    }
+  }
+
+  @include sm {
+  }
+
+  @include lg {
+    // background-color: blue;
+  }
+}

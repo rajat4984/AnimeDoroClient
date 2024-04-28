@@ -1,0 +1,9 @@
+@import './base/colors';
+$themes: (
+  default: (
+    bg: $background--light,
+  ),
+  dark: (
+    bg: $backgound--dark,
+  ),
+);
