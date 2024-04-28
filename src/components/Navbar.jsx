@@ -3,6 +3,7 @@ import { RxLapTimer } from 'react-icons/rx';
 import { PiTelevision } from 'react-icons/pi';
 import { RxSpeakerLoud } from 'react-icons/rx';
 import { VscAccount } from 'react-icons/vsc';
+import { IoSettingsOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   return (
@@ -22,15 +23,15 @@ const Navbar = () => {
           <span className="desktop-links">Anime</span>
         </div>
       </div>
-      <div className='brand'>
+      <div className="brand">
         <h1>AnimeDoro</h1>
       </div>
       <div className="nav-links">
         <div>
           <span className="mob-links">
-            <RxSpeakerLoud />
+            <IoSettingsOutline />
           </span>
-          <span className="desktop-links">Music</span>
+          <span className="desktop-links">Settings</span>
         </div>
         <div>
           <span className="mob-links">
