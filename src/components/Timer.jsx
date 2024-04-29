@@ -1,26 +1,41 @@
-import React from 'react';
+import '../styles/components/timer.scss';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { IoPlayOutline, IoPauseOutline } from 'react-icons/io5';
-import { FaPlayCircle } from "react-icons/fa";
+import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
+import { useState } from 'react';
 
 const Timer = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const children = ({ remainingTime }) => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    return <div className="timer-left">{`${minutes}:${seconds}`}</div>;
+  };
   return (
     <div className="timer">
       <CountdownCircleTimer
-        isPlaying
-        duration={7}
+        isPlaying={isPlaying}
+        duration={5}
         colors={' #f35757'}
+        strokeLinecap={'round'}
+        strokeWidth={6}
+        trailColor={'#ffcccc'}
         onComplete={() => {
+          setIsPlaying(false);
           console.log('Pomo Completed');
         }}
       >
-        {({ remainingTime }) => remainingTime}
+        {children}
       </CountdownCircleTimer>
 
-      <div>
+      <div className="timer-btn">
         <div>
-          <FaPlayCircle />
-          {/* <IoPauseOutline /> */}
+          {isPlaying ? (
+            <FaPauseCircle size={30} onClick={() => setIsPlaying(false)} />
+          ) : (
+            <FaPlayCircle size={30} onClick={() => setIsPlaying(true)} />
+          )}
         </div>
       </div>
     </div>

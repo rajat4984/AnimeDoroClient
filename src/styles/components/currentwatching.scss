@@ -42,8 +42,12 @@
   }
 
   @include sm {
+
   }
 
   @include lg {
+    position: static;
+    box-shadow: none;
+    
   }
 }

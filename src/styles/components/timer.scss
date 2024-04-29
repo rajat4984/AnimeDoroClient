@@ -1,0 +1,28 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.timer {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-45%, -50%);
+  text-align: center;
+
+  .timer-left{
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  .timer-btn {
+    margin-top: 1em;
+  }
+
+  @include sm {
+
+  }
+  @include lg {
+    position: static;
+    transform: initial;
+    flex: 2;
+  }
+}
