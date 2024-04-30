@@ -1,0 +1,67 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.pop-up {
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00000059;
+    z-index: 2;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    background-color: $background--light;
+    width: 80%;
+    border-radius: 10px;
+
+    .close-btn {
+      position: relative;
+      left: 90%;
+      cursor: pointer;
+    }
+
+    form {
+      padding: 0.5em 0.3em;
+      .form-item {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        padding: 0.3em 1em;
+
+        select {
+          outline: none;
+          background: $primary-red;
+          color: $white;
+          border: none;
+          border-radius: 5px;
+          width: 35%;
+        }
+      }
+
+      button {
+        margin: 1.3em;
+        background-color: $primary-red;
+        color: $background--light;
+        border: none;
+        outline: none;
+        padding: 0.2em 1em;
+        border-radius: 5px;
+        float: right;
+        box-shadow: 0px 6px 0px #ffcccc;
+      }
+    }
+  }
+
+  @include sm {
+    .content {
+      width: 50%;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 import { useState } from 'react';
 
-const Timer = () => {
+const Timer = ({ popupSettings }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const children = ({ remainingTime }) => {
@@ -16,7 +16,7 @@ const Timer = () => {
     <div className="timer">
       <CountdownCircleTimer
         isPlaying={isPlaying}
-        duration={5}
+        duration={popupSettings.pomoTime * 60}
         colors={' #f35757'}
         strokeLinecap={'round'}
         strokeWidth={6}
