@@ -4,13 +4,11 @@ import CurrentWatching from '../components/CurrentWatching';
 import { useState } from 'react';
 import Popup from '../components/Popup';
 
-
-
-//TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT 
+//TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT
 
 const HomePage = () => {
   const [popupSettings, setPopupSettings] = useState({
-    isOpen: true,
+    isOpen: false,
     theme: 'light',
     music: 'On',
     pomoTime: 25,

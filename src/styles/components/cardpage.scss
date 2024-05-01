@@ -1,0 +1,23 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+.card-page {
+  position: fixed;
+  bottom: 0;
+  height: 90vh;
+  background-color: $background--light;
+  width: 95vw;
+  border-radius: 20px;
+  box-shadow: 0px -10px 6px -5px rgba(221, 83, 83, 1);
+//   left: 50%;
+//   transform: translateX(-50%);
+  padding: 1em;
+
+  .overlay{
+  }
+
+  .close-btn {
+    position: relative;
+    bottom: 0;
+    float: right;
+  }
+}
