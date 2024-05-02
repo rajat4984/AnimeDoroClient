@@ -1,0 +1,62 @@
+.pop-up .overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.3490196078);
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pop-up .content {
+  background-color: #fffdef;
+  width: 80%;
+  border-radius: 10px;
+}
+.pop-up .content form {
+  padding: 0.5em;
+}
+.pop-up .content form .form-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  padding: 0.3em 1em;
+}
+.pop-up .content form .form-item select {
+  outline: none;
+  background: #dd5353;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 35%;
+}
+.pop-up .content form .btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pop-up .content form button {
+  cursor: pointer;
+  margin: 1.3em;
+  background-color: #dd5353;
+  color: #fffdef;
+  border: none;
+  outline: none;
+  padding: 0.2em 1em;
+  border-radius: 5px;
+  float: right;
+  box-shadow: 0px 6px 0px #ffcccc;
+}
+.pop-up .content form .cancel-btn {
+  background-color: #fffdef;
+  color: #dd5353;
+  border: 2px solid #dd5353;
+}
+@media (min-width: 480px) {
+  .pop-up .content {
+    width: 50%;
+  }
+}/*# sourceMappingURL=popup.css.map */

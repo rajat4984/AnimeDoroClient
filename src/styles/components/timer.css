@@ -1,0 +1,21 @@
+.timer {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-45%, -50%);
+  text-align: center;
+}
+.timer .timer-left {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.timer .timer-btn {
+  margin-top: 1em;
+}
+@media (min-width: 960px) {
+  .timer {
+    position: static;
+    transform: initial;
+    flex: 2;
+  }
+}/*# sourceMappingURL=timer.css.map */

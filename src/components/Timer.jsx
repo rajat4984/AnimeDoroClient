@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import '../styles/components/timer.scss';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const Timer = ({ popupSettings }) => {
+const Timer = () => {
+  const { pomoTime } = useSelector((store) => store.global.popupSettings);
   const [isPlaying, setIsPlaying] = useState(false);
-
   const children = ({ remainingTime }) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -16,7 +17,7 @@ const Timer = ({ popupSettings }) => {
     <div className="timer">
       <CountdownCircleTimer
         isPlaying={isPlaying}
-        duration={popupSettings.pomoTime * 60}
+        duration={pomoTime * 60}
         colors={' #f35757'}
         strokeLinecap={'round'}
         strokeWidth={6}

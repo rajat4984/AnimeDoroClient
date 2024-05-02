@@ -3,6 +3,7 @@ import Timer from '../components/Timer';
 import CurrentWatching from '../components/CurrentWatching';
 import { useState } from 'react';
 import Popup from '../components/Popup';
+import { useSelector } from 'react-redux';
 
 //TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT
 
@@ -13,6 +14,8 @@ const HomePage = () => {
     music: 'On',
     pomoTime: 25,
   });
+  const { isOpen } = useSelector((store) => store.global.popupSettings);
+
   return (
     <div className="home-page">
       <Timer
@@ -23,10 +26,16 @@ const HomePage = () => {
         popupSettings={popupSettings}
         setPopupSettings={setPopupSettings}
       />
-      <Popup
-        popupSettings={popupSettings}
-        setPopupSettings={setPopupSettings}
-      />
+
+      {
+        isOpen && (
+
+          <Popup
+            popupSettings={popupSettings}
+            setPopupSettings={setPopupSettings}
+          />
+        )
+      }
     </div>
   );
 };

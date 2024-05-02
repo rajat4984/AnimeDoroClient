@@ -21,14 +21,8 @@
     width: 80%;
     border-radius: 10px;
 
-    .close-btn {
-      position: relative;
-      left: 90%;
-      cursor: pointer;
-    }
-
     form {
-      padding: 0.5em 0.3em;
+      padding: 0.5em;
       .form-item {
         display: flex;
         justify-content: space-between;
@@ -45,7 +39,14 @@
         }
       }
 
+      .btn-group{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       button {
+        cursor: pointer;
         margin: 1.3em;
         background-color: $primary-red;
         color: $background--light;
@@ -55,6 +56,12 @@
         border-radius: 5px;
         float: right;
         box-shadow: 0px 6px 0px #ffcccc;
+      }
+
+      .cancel-btn{
+        background-color: $background--light;
+        color: $primary-red;
+        border: 2px solid $primary-red;
       }
     }
   }

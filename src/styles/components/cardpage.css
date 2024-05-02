@@ -1,0 +1,15 @@
+.card-page {
+  position: fixed;
+  bottom: 0;
+  height: 90vh;
+  background-color: #fffdef;
+  width: 95vw;
+  border-radius: 20px;
+  box-shadow: 0px -10px 6px -5px rgb(221, 83, 83);
+  padding: 1em;
+}
+.card-page .close-btn {
+  position: relative;
+  bottom: 0;
+  float: right;
+}/*# sourceMappingURL=cardpage.css.map */

@@ -1,70 +1,87 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '../styles/components/popup.scss';
 import { IoClose } from 'react-icons/io5';
-const Popup = ({ popupSettings, setPopupSettings }) => {
+import {
+  changePopup,
+  togglePopUp,
+  updatePopup,
+} from '../redux/globalSlice/globalSlice';
+import { useState } from 'react';
+const Popup = ({ setPopupSettings }) => {
+  const { isOpen, theme, music, pomoTime } = useSelector(
+    (store) => store.global.popupSettings
+  );
+  const dispatch = useDispatch();
+
+  const [popupForm, setPopupForm] = useState({
+    isOpen: false,
+    theme: 'light',
+    music: 'On',
+    pomoTime: 25,
+  });
+
   const handleOptionsChange = (e) => {
-    setPopupSettings((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    dispatch(changePopup(e));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPopupSettings((prev) => ({ ...prev, isOpen: false }));
+    dispatch(updatePopup('save'));
   };
   return (
-    <>
-      {popupSettings.isOpen && (
-        <div className="pop-up">
-          <div className="overlay">
-            <div className="content">
-              <IoClose
-                className="close-btn"
-                onClick={() => {
-                  setPopupSettings({
-                    isOpen: false,
-                    theme: 'light',
-                    music: 'On',
-                    pomoTime: 25,
-                  });
-                }}
-              />
-              <form onSubmit={handleSubmit}>
-                <div className="form-item">
-                  <label for="music">Music</label>
-                  <select
-                  value={popupSettings.music}
-                    name="music"
-                    id="music"
-                    onChange={handleOptionsChange}
-                  >
-                    <option>On</option>
-                    <option>Off</option>
-                  </select>
-                </div>
-                <div className="form-item">
-                  <label>Theme</label>
-                  <select  value={popupSettings.theme} name="theme" onChange={handleOptionsChange}>
-                    <option>Light</option>
-                    <option>Dark</option>
-                  </select>
-                </div>
-                <div className="form-item">
-                  <label>Pomo Time</label>
-                  <select value={popupSettings.pomoTime} name="pomoTime" onChange={handleOptionsChange}>
-                    <option>60</option>
-                    <option>45</option>
-                    <option>25</option>
-                  </select>
-                </div>
-                <button type="submit">Save</button>
-              </form>
+    <div className="pop-up">
+      <div className="overlay">
+        <div className="content">
+          <form onSubmit={handleSubmit}>
+            <div className="form-item">
+              <label for="music">Music</label>
+              <select
+                onChange={handleOptionsChange}
+                value={music}
+                name="music"
+                id="music"
+              >
+                <option>On</option>
+                <option>Off</option>
+              </select>
             </div>
-          </div>
+            <div className="form-item">
+              <label>Theme</label>
+              <select onChange={handleOptionsChange} value={theme} name="theme">
+                <option>Light</option>
+                <option>Dark</option>
+              </select>
+            </div>
+            <div className="form-item">
+              <label>Pomo Time</label>
+              <select
+                onChange={handleOptionsChange}
+                value={pomoTime}
+                name="pomoTime"
+              >
+                <option>60</option>
+                <option>45</option>
+                <option>25</option>
+              </select>
+            </div>
+            <div className='btn-group'>
+              <button type="submit" className="save-btn">
+                Save
+              </button>
+
+              <button
+                onClick={() => {
+                  setPopupSettings(dispatch(updatePopup('close')));
+                }}
+                className="cancel-btn"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+.navbar .nav-links {
+  display: flex;
+}
+.navbar .nav-links > div:first-child {
+  margin-right: 0.7em;
+}
+.navbar .nav-links .desktop-links {
+  display: none;
+}
+@media (min-width: 480px) {
+  .navbar .nav-links {
+    align-self: center;
+  }
+  .navbar .nav-links > div {
+    margin: 0 1em;
+  }
+  .navbar .nav-links .desktop-links {
+    display: block;
+    cursor: pointer;
+  }
+  .navbar .nav-links .mob-links {
+    display: none;
+  }
+}/*# sourceMappingURL=navbar.css.map */
