@@ -88,7 +88,7 @@ const CardPage = () => {
             <GrPrevious className='next-btn' size={10}/>
           </div>
         </div>
-        {/* <BarChart/> */}
+        <BarChart/>
       </div>
     </motion.div>
   );

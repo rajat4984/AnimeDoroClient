@@ -8,27 +8,39 @@ Chart.register(CategoryScale);
 
 const BarChart = () => {
   const [chartData, setChartData] = useState({
-    labels: Data.map((data) => data.year),
+    labels: ['Week1', 'Week2', 'Week3', 'Week4'],
     datasets: [
       {
-        label: 'Users Gained ',
-        data: Data.map((data) => data.userGain),
-        borderColor: 'black',
-        borderWidth: 2,
+        label: 'Productive time',
+        data: [1, 5, 2, 6],
+        borderColor: '#dd5353',
+        borderWidth: 1,
+        backgroundColor: '#ffcccc',
+        barThickness: 20,
+        hoverBackgroundColor: '#dd5353',
       },
     ],
   });
   return (
-    <div>
+    <div className="bar-chart">
       <Bar
         data={chartData}
         options={{
-          plugins: {
-            title: {
-              display: true,
-              text: 'Users Gained between 2016-2020',
+          plugins: {},
+          scales: {
+            y: {
+              ticks: {
+                color: '#dd5353',
+              },
+            },
+            x: {
+              ticks: {
+                color: '#dd5353',
+              },
             },
           },
+          maintainAspectRatio: false,
+          color: '#dd5353',
         }}
       />
     </div>

@@ -68,16 +68,16 @@
           display: none;
         }
 
-        .month label{
-          border-radius: .3em 0 0 .3em;
+        .month label {
+          border-radius: 0.3em 0 0 0.3em;
         }
 
-        .week label{
-          border-radius: 0 0.3em .3em 0;
+        .week label {
+          border-radius: 0 0.3em 0.3em 0;
         }
 
         label {
-          transition: 0.2s;
+          transition: 0.1s;
           padding: 0.3em;
           font-size: 0.8rem;
         }
@@ -87,9 +87,9 @@
         }
       }
 
-      .btn-group{
-        *{
-          margin: .3em;
+      .btn-group {
+        * {
+          margin: 0.3em;
         }
       }
     }
@@ -97,17 +97,40 @@
     .next-btn {
       rotate: 180deg;
     }
+
+    .bar-chart {
+      margin: 3em auto 1em auto;
+      height: 200px;
+      width: 250px;
+  
+    }
   }
 
   @include sm {
     .flex {
       justify-content: center;
     }
+
+    .chart-info {
+      .bar-chart {
+        height: 300px;
+        width: 500px;
+        // margin: 3em auto;
+      }
+    }
   }
 
-  @include lg{
-    .card-page{
-       padding:  1em 3em;
+  @include lg {
+    .card-page {
+      padding: 1em 3em;
+    }
+
+    .chart-info {
+      .bar-chart {
+        height: 400px;
+        width: 800px;
+        // margin: 3em auto;
+      }
     }
   }
 }

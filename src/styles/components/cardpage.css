@@ -63,7 +63,7 @@
   border-radius: 0 0.3em 0.3em 0;
 }
 .card-page .chart-info .flex .time label {
-  transition: 0.2s;
+  transition: 0.1s;
   padding: 0.3em;
   font-size: 0.8rem;
 }
@@ -76,13 +76,26 @@
 .card-page .chart-info .next-btn {
   rotate: 180deg;
 }
+.card-page .chart-info .bar-chart {
+  margin: 3em auto 1em auto;
+  height: 200px;
+  width: 250px;
+}
 @media (min-width: 480px) {
   .card-page .flex {
     justify-content: center;
+  }
+  .card-page .chart-info .bar-chart {
+    height: 300px;
+    width: 500px;
   }
 }
 @media (min-width: 960px) {
   .card-page .card-page {
     padding: 1em 3em;
+  }
+  .card-page .chart-info .bar-chart {
+    height: 400px;
+    width: 800px;
   }
 }/*# sourceMappingURL=cardpage.css.map */
