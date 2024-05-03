@@ -5,6 +5,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopUp } from '../redux/globalSlice/globalSlice';
+import { toggleCardPage } from '../redux/chartSlice/chartSlice';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -28,19 +29,22 @@ const Navbar = () => {
       <div className="brand">
         <h1>AnimeDoro</h1>
       </div>
-      <div
-        className="nav-links"
-        onClick={() => {
-          dispatch(togglePopUp());
-        }}
-      >
-        <div>
+      <div className="nav-links">
+        <div
+          onClick={() => {
+            dispatch(togglePopUp());
+          }}
+        >
           <span className="mob-links">
             <IoSettingsOutline />
           </span>
           <span className="desktop-links">Settings</span>
         </div>
-        <div>
+        <div
+          onClick={() => {
+            dispatch(toggleCardPage());
+          }}
+        >
           <span className="mob-links">
             <VscAccount />
           </span>

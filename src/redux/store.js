@@ -3,6 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import globalReducer from './globalSlice/globalSlice';
+import chartReducer from "./chartSlice/chartSlice"
 
 // const persistConfig = {
 //   key: 'roote',
@@ -23,5 +24,6 @@ import globalReducer from './globalSlice/globalSlice';
 export const store = configureStore({
   reducer: {
     global: globalReducer,
+    chart:chartReducer
   },
 });

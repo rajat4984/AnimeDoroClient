@@ -1,24 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../styles/components/popup.scss';
-import { IoClose } from 'react-icons/io5';
 import {
   changePopup,
-  togglePopUp,
   updatePopup,
 } from '../redux/globalSlice/globalSlice';
 import { useState } from 'react';
-const Popup = ({ setPopupSettings }) => {
+const Popup = () => {
   const { isOpen, theme, music, pomoTime } = useSelector(
     (store) => store.global.popupSettings
   );
   const dispatch = useDispatch();
-
-  const [popupForm, setPopupForm] = useState({
-    isOpen: false,
-    theme: 'light',
-    music: 'On',
-    pomoTime: 25,
-  });
 
   const handleOptionsChange = (e) => {
     dispatch(changePopup(e));

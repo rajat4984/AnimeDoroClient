@@ -1,41 +1,24 @@
 import '../styles/pages/home.scss';
 import Timer from '../components/Timer';
 import CurrentWatching from '../components/CurrentWatching';
-import { useState } from 'react';
 import Popup from '../components/Popup';
 import { useSelector } from 'react-redux';
+import CardPage from '../components/CardPage';
 
 //TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT
 
 const HomePage = () => {
-  const [popupSettings, setPopupSettings] = useState({
-    isOpen: false,
-    theme: 'light',
-    music: 'On',
-    pomoTime: 25,
-  });
   const { isOpen } = useSelector((store) => store.global.popupSettings);
+  const { isOpen: chartOpen } = useSelector((store) => store.chart);
 
   return (
     <div className="home-page">
-      <Timer
-        popupSettings={popupSettings}
-        setPopupSettings={setPopupSettings}
-      />
-      <CurrentWatching
-        popupSettings={popupSettings}
-        setPopupSettings={setPopupSettings}
-      />
+      <Timer />
+      <CurrentWatching />
 
-      {
-        isOpen && (
+      {isOpen && <Popup />}
 
-          <Popup
-            popupSettings={popupSettings}
-            setPopupSettings={setPopupSettings}
-          />
-        )
-      }
+      <CardPage />
     </div>
   );
 };

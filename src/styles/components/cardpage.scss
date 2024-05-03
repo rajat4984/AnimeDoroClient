@@ -8,16 +8,106 @@
   width: 95vw;
   border-radius: 20px;
   box-shadow: 0px -10px 6px -5px rgba(221, 83, 83, 1);
-//   left: 50%;
-//   transform: translateX(-50%);
+  margin: 0 auto;
   padding: 1em;
-
-  .overlay{
-  }
 
   .close-btn {
     position: relative;
     bottom: 0;
     float: right;
+  }
+
+  .activities {
+    h4 {
+      margin: 1em 0;
+    }
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+
+      .flex-card {
+        position: relative;
+
+        background-color: $secondary-red;
+        padding: 1em;
+        border-radius: 10px;
+        text-align: right;
+        font-size: 12px;
+
+        p {
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .icon {
+          align-self: flex-start;
+          width: 20%;
+          left: 0;
+          top: 5%;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  .chart-info {
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .time {
+        display: flex;
+        align-items: center;
+        border: 1px solid $primary-red;
+        border-radius: 0.3em;
+
+        input[type='radio'] {
+          display: none;
+        }
+
+        .month label{
+          border-radius: .3em 0 0 .3em;
+        }
+
+        .week label{
+          border-radius: 0 0.3em .3em 0;
+        }
+
+        label {
+          transition: 0.2s;
+          padding: 0.3em;
+          font-size: 0.8rem;
+        }
+
+        input[type='radio']:checked + label {
+          background-color: $secondary-red;
+        }
+      }
+
+      .btn-group{
+        *{
+          margin: .3em;
+        }
+      }
+    }
+
+    .next-btn {
+      rotate: 180deg;
+    }
+  }
+
+  @include sm {
+    .flex {
+      justify-content: center;
+    }
+  }
+
+  @include lg{
+    .card-page{
+       padding:  1em 3em;
+    }
   }
 }

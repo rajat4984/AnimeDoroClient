@@ -6,10 +6,83 @@
   width: 95vw;
   border-radius: 20px;
   box-shadow: 0px -10px 6px -5px rgb(221, 83, 83);
+  margin: 0 auto;
   padding: 1em;
 }
 .card-page .close-btn {
   position: relative;
   bottom: 0;
   float: right;
+}
+.card-page .activities h4 {
+  margin: 1em 0;
+}
+.card-page .activities .flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.card-page .activities .flex .flex-card {
+  position: relative;
+  background-color: #ffcccc;
+  padding: 1em;
+  border-radius: 10px;
+  text-align: right;
+  font-size: 12px;
+}
+.card-page .activities .flex .flex-card p {
+  margin: 0;
+  line-height: 1.2;
+}
+.card-page .activities .flex .flex-card .icon {
+  align-self: flex-start;
+  width: 20%;
+  left: 0;
+  top: 5%;
+  position: absolute;
+}
+.card-page .chart-info .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-page .chart-info .flex .time {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dd5353;
+  border-radius: 0.3em;
+}
+.card-page .chart-info .flex .time input[type=radio] {
+  display: none;
+}
+.card-page .chart-info .flex .time .month label {
+  border-radius: 0.3em 0 0 0.3em;
+}
+.card-page .chart-info .flex .time .week label {
+  border-radius: 0 0.3em 0.3em 0;
+}
+.card-page .chart-info .flex .time label {
+  transition: 0.2s;
+  padding: 0.3em;
+  font-size: 0.8rem;
+}
+.card-page .chart-info .flex .time input[type=radio]:checked + label {
+  background-color: #ffcccc;
+}
+.card-page .chart-info .flex .btn-group * {
+  margin: 0.3em;
+}
+.card-page .chart-info .next-btn {
+  rotate: 180deg;
+}
+@media (min-width: 480px) {
+  .card-page .flex {
+    justify-content: center;
+  }
+}
+@media (min-width: 960px) {
+  .card-page .card-page {
+    padding: 1em 3em;
+  }
 }/*# sourceMappingURL=cardpage.css.map */
