@@ -1,19 +1,19 @@
 import '../styles/components/login.scss';
 import { MdAlternateEmail } from 'react-icons/md';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
-
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice/userSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
   });
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +25,7 @@ const LoginForm = () => {
     e.preventDefault();
     const res = await dispatch(login(loginForm));
     if (res.type === '/auth/login/fulfilled') {
+      setCookie('accessToken', res.payload.headers.authorization);
       toast.success('Logged In!');
       setTimeout(() => {
         navigate('/');
