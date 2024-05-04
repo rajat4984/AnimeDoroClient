@@ -1,6 +1,7 @@
 @import '../base/_breakpoints';
 @import '../base/colors';
 .card-page {
+  z-index: 5;
   position: fixed;
   bottom: 0;
   height: 90vh;

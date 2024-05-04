@@ -75,7 +75,7 @@ const CardPage = () => {
         <div className="flex">
           <div className="time">
             <div className="month">
-              <input checked id="month" type="radio" name="time-period" />
+              <input defaultChecked id="month" type="radio" name="time-period" />
               <label htmlFor="month">Month</label>
             </div>
             <div className="week">

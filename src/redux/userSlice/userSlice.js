@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useNavigate, useNavigation } from 'react-router-dom'; 
 import axios from 'axios';
 
 const initialState = {
@@ -8,17 +7,32 @@ const initialState = {
   error: '',
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const register = createAsyncThunk(
   '/auth/register',
   async (registerForm, { rejectWithValue }) => {
     console.log(registerForm, 'register');
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/auth/register',
-        registerForm
-      );
+      const res = await axios.post(`${API_URL}/auth/register`, registerForm, {
+        withCredentials: true,
+      });
 
       return res;
+    } catch (error) {
+      // console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+const login = createAsyncThunk(
+  '/auth/login',
+  async (loginForm, { rejectWithValue }) => {
+    try {
+      return await axios.post(`${API_URL}/auth/login`, loginForm, {
+        withCredentials: true,
+      });
     } catch (error) {
       console.log(error);
       return rejectWithValue(error);
@@ -30,6 +44,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   extraReducers: (builder) => {
+    //register
     builder.addCase(register.pending, (state, action) => {
       state.isLoading = true;
     });
@@ -43,13 +58,23 @@ const userSlice = createSlice({
       } = action.payload.data.user;
       state.user = { email, username, userId, pomoData };
     });
-    builder.addCase(register.rejected, (state, action) => {
+
+    //login
+    builder.addCase(login.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.isLoading = false;
+
+      const { email, username, _id: userId, pomoData } = action.payload.data;
+      state.user = { email, username, userId, pomoData };
+    });
+    builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
       console.log(action, 'actionr');
-      // console.log(payload, 'payloadr');
     });
   },
 });
 
-export { register };
+export { register, login };
 export default userSlice.reducer;
