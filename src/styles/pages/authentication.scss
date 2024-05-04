@@ -1,0 +1,40 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.authentication-page {
+  margin: 2em 1em;
+
+  .auth-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3em;
+
+
+    border-radius: 0.3em;
+
+    label {
+      padding: 0.5em;
+    //   background-color: $secondary-red;
+      border: 1px solid $primary-red;
+      transition: .2s;
+    }
+
+    .login label{
+        border-radius: .3em 0 0 .3em;
+        border-right: 0;
+    }
+
+    .signup label{
+        border-radius: 0 .3em .3em 0 ;
+        border-left: 0;
+    }
+
+    input[type='radio'] {
+      display: none;
+    }
+    input[type='radio']:checked + label {
+        background-color: $secondary-red;
+    }
+  }
+}

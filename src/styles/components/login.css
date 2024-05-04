@@ -1,0 +1,52 @@
+.login-form {
+  margin: 3.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form form .form-item {
+  position: relative;
+}
+.login-form form .form-item .icon {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2;
+}
+.login-form form input {
+  outline: none;
+  border: none;
+  background-color: #ffcccc;
+  border-radius: 0.3em;
+  padding: 1em;
+  margin-bottom: 0.5em;
+  color: #f75151;
+  width: 300px;
+  padding-right: 2em;
+}
+.login-form form ::-moz-placeholder {
+  color: #f75151;
+}
+.login-form form ::placeholder {
+  color: #f75151;
+}
+.login-form form button {
+  cursor: pointer;
+  margin-top: 0.8em;
+  text-align: center;
+  background-color: #dd5353;
+  color: #fffdef;
+  border: none;
+  outline: none;
+  padding: 0.2em 1em;
+  border-radius: 5px;
+  box-shadow: 0px 6px 0px #ffcccc;
+  width: 100%;
+}/*# sourceMappingURL=login.css.map */

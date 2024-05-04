@@ -16,6 +16,9 @@
   width: 100%;
   border-radius: 10px;
 }
+.current-watching .current-anime-info p {
+  margin: 0;
+}
 .current-watching .current-anime-info .main {
   color: #f35757;
 }

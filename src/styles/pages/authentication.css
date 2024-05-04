@@ -1,0 +1,29 @@
+.authentication-page {
+  margin: 2em 1em;
+}
+.authentication-page .auth-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3em;
+  border-radius: 0.3em;
+}
+.authentication-page .auth-switch label {
+  padding: 0.5em;
+  border: 1px solid #dd5353;
+  transition: 0.2s;
+}
+.authentication-page .auth-switch .login label {
+  border-radius: 0.3em 0 0 0.3em;
+  border-right: 0;
+}
+.authentication-page .auth-switch .signup label {
+  border-radius: 0 0.3em 0.3em 0;
+  border-left: 0;
+}
+.authentication-page .auth-switch input[type=radio] {
+  display: none;
+}
+.authentication-page .auth-switch input[type=radio]:checked + label {
+  background-color: #ffcccc;
+}/*# sourceMappingURL=authentication.css.map */

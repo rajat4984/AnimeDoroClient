@@ -1,0 +1,58 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.login-form {
+  margin: 3.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .form-item{
+        position: relative;
+
+        .icon{
+            position: absolute;
+            top: 50%;
+            right: 4%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 2;
+        }
+    }
+
+
+    input {
+      outline: none;
+      border: none;
+      background-color: $secondary-red;
+      border-radius: 0.3em;
+      padding: 1em;
+      margin-bottom: .5em;
+      color: $text-light;
+      width: 300px;
+      padding-right: 2em;
+    }
+
+    ::placeholder {
+      color: $text-light;
+    }
+
+    button {
+      cursor: pointer;
+      margin-top: 0.8em;
+      text-align: center;
+      background-color: $primary-red;
+      color: $background--light;
+      border: none;
+      outline: none;
+      padding: 0.2em 1em;
+      border-radius: 5px;
+      box-shadow: 0px 6px 0px #ffcccc;
+      width: 100%;
+    }
+  }
+}

@@ -8,7 +8,6 @@ import CardPage from '../components/CardPage';
 //TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT
 
 const HomePage = () => {
-  const { isOpen } = useSelector((store) => store.global.popupSettings);
   const { isOpen: chartOpen } = useSelector((store) => store.chart);
 
   return (
@@ -16,9 +15,7 @@ const HomePage = () => {
       <Timer />
       <CurrentWatching />
 
-      {isOpen && <Popup />}
-
-      <CardPage />
+    
     </div>
   );
 };
