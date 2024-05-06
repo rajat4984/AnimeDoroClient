@@ -6,22 +6,25 @@ import {
 } from 'react-icons/md';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
 import { register } from '../redux/userSlice/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-const signupForm = () => {
+const signupForm = ({ setFormSwitch }) => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
   const [registerForm, setRegisterForm] = useState({
     email: '',
     username: '',
     password: '',
     otp: '',
   });
+  const { isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     setRegisterForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,11 +32,16 @@ const signupForm = () => {
 
   const sendOtp = async (e) => {
     e.preventDefault();
+    setOtpLoading(true);
     try {
       const res = await axios.post('http://localhost:5000/api/auth/sendOtp', {
         email: registerForm.email,
       });
 
+      toast('OTP sent', {
+        icon: '🔐',
+        duration: 2000,
+      });
       setShowOtp(true);
     } catch (error) {
       toast.error(error.response.data, {
@@ -43,6 +51,8 @@ const signupForm = () => {
         },
       });
       console.log(error);
+    } finally {
+      setOtpLoading(false);
     }
   };
 
@@ -50,7 +60,15 @@ const signupForm = () => {
     e.preventDefault();
     const res = await dispatch(register(registerForm));
     if (res.type === '/auth/register/fulfilled') {
-      navigate('/');
+      toast.success('User registered!', {
+        duration: 2000,
+        style: {
+          color: '#f75151',
+        },
+      });
+      setTimeout(() => {
+        setFormSwitch('login');
+      }, 2000);
     }
   };
   return (
@@ -122,11 +140,15 @@ const signupForm = () => {
             </div>
           )}
 
-          {showOtp ? (
+          {otpLoading || isLoading ? (
+            <CircularProgress sx={{ color: '#f75151' }} />
+          ) : showOtp ? (
             <button type="submit">Signup</button>
           ) : (
             <button type="submit">Send Otp</button>
           )}
+
+          {}
         </form>
       </div>
     </>

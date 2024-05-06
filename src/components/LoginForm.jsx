@@ -2,9 +2,10 @@ import '../styles/components/login.scss';
 import { MdAlternateEmail } from 'react-icons/md';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/userSlice/userSlice';
 import toast, { Toaster } from 'react-hot-toast';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 const LoginForm = () => {
@@ -13,6 +14,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
+  const { isLoading } = useSelector((store) => store.user);
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,7 +72,11 @@ const LoginForm = () => {
               />
             )}
           </div>
-          <button type="submit">Login</button>
+          {isLoading ? (
+            <CircularProgress sx={{ color: '#f75151' }} />
+          ) : (
+            <button type="submit">Login</button>
+          )}
         </form>
       </div>
     </>

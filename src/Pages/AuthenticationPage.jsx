@@ -23,7 +23,7 @@ const AuthenticationPage = () => {
             </label>
           </div>
         </div>
-        {formSwitch === 'login' ? <LoginForm /> : <SignupForm />}
+        {formSwitch === 'login' ? <LoginForm /> : <SignupForm setFormSwitch={setFormSwitch} />}
       </div>
       <div className='image'>
         <img src="/assets/images/authImage.svg" />
