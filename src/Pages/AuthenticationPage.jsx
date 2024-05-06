@@ -8,21 +8,26 @@ const AuthenticationPage = () => {
 
   return (
     <div className="authentication-page">
-      <div className="auth-switch">
-        <div className="login">
-          <input defaultChecked id="login" type="radio" name="auth" />
-          <label onClick={() => setFormSwitch('login')} htmlFor="login">
-            Login
-          </label>
+      <div>
+        <div className="auth-switch">
+          <div className="login">
+            <input defaultChecked id="login" type="radio" name="auth" />
+            <label onClick={() => setFormSwitch('login')} htmlFor="login">
+              Login
+            </label>
+          </div>
+          <div className="signup">
+            <input id="signup" type="radio" name="auth" />
+            <label onClick={() => setFormSwitch('signup')} htmlFor="signup">
+              Signup
+            </label>
+          </div>
         </div>
-        <div className="signup">
-          <input id="signup" type="radio" name="auth" />
-          <label onClick={() => setFormSwitch('signup')} htmlFor="signup">
-            Signup
-          </label>
-        </div>
+        {formSwitch === 'login' ? <LoginForm /> : <SignupForm />}
       </div>
-      {formSwitch === 'login' ? <LoginForm /> : <SignupForm />}
+      <div className='image'>
+        <img src="/assets/images/authImage.svg" />
+      </div>
     </div>
   );
 };

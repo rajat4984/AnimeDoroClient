@@ -5,6 +5,7 @@ import CardPage from './components/CardPage';
 import Navbar from './components/Navbar';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Popup from './components/Popup';
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
