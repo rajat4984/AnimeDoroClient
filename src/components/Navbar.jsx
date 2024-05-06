@@ -6,11 +6,16 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopUp } from '../redux/globalSlice/globalSlice';
 import { toggleCardPage } from '../redux/chartSlice/chartSlice';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const userState = useSelector((store) => store.user);
   return (
     <nav className="navbar">
+      <Link to="/" className="brand">
+        <h1>AnimeDoro</h1>
+      </Link>
       <div className="nav-links">
         <div>
           <span className="mob-links">
@@ -26,9 +31,7 @@ const Navbar = () => {
           <span className="desktop-links">Anime</span>
         </div>
       </div>
-      <div className="brand">
-        <h1>AnimeDoro</h1>
-      </div>
+
       <div className="nav-links">
         <div
           onClick={() => {
@@ -40,16 +43,29 @@ const Navbar = () => {
           </span>
           <span className="desktop-links">Settings</span>
         </div>
-        <div
-          onClick={() => {
-            dispatch(toggleCardPage());
-          }}
-        >
-          <span className="mob-links">
-            <VscAccount />
-          </span>
-          <span className="desktop-links">Account</span>
-        </div>
+        {userState.user.userId ? (
+          <div
+            onClick={() => {
+              dispatch(toggleCardPage());
+            }}
+          >
+            <span className="mob-links loggedIn">
+              {userState.user.username.slice(0, 1).toUpperCase()}
+            </span>
+            <span className="desktop-links loggedIn">
+              {userState.user.username.slice(0, 1).toUpperCase()}
+            </span>
+          </div>
+        ) : (
+          <div>
+            <Link to="/auth" className="mob-links">
+              <VscAccount />
+            </Link>
+            <Link to="/auth" className="desktop-links">
+              Login
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );

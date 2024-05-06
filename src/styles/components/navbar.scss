@@ -1,9 +1,17 @@
 @import '../base/_breakpoints';
+@import '../base/colors';
 
 .navbar {
   display: flex;
   justify-content: space-between;
   padding: 1em;
+
+  .brand{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 12%;
+  }
 
   .nav-links {
     display: flex;
@@ -15,6 +23,17 @@
 
     .desktop-links {
       display: none;
+    }
+
+    .mob-links.loggedIn{
+      background-color: $secondary-red;
+      padding: 0 .5em;
+      border-radius: 50px;  
+    }
+    .desktop-links.loggedIn{
+      background-color: $secondary-red;
+      padding: 0 .5em;
+      border-radius: 50px; 
     }
   }
 

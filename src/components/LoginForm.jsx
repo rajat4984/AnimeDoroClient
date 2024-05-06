@@ -29,9 +29,8 @@ const LoginForm = () => {
     if (res.type === '/auth/login/fulfilled') {
       setCookie('accessToken', res.payload.headers.authorization);
       toast.success('Logged In!');
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
+
+      navigate('/');
     }
   };
 

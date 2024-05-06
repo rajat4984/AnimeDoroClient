@@ -14,12 +14,11 @@ function App() {
     <>
       <Navbar />
       {/* <HomePage /> */}
-      <Router>
-        <Routes>
-          <Route path="/auth" element={<AuthenticationPage />} />
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </Router>
+
+      <Routes>
+        <Route path="/auth" element={<AuthenticationPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
 
       {isOpen && <Popup />}
 
