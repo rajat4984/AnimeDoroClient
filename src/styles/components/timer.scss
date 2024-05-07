@@ -3,10 +3,12 @@
 
 .timer {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
-  transform: translate(-45%, -50%);
+  transform: translate(-50%, -50%);
   text-align: center;
+
+
 
   .timer-left{
     font-weight: 600;
@@ -15,14 +17,19 @@
 
   .timer-btn {
     margin-top: 1em;
+    cursor: pointer;
   }
 
   @include sm {
-
-  }
-  @include lg {
-    position: static;
-    transform: initial;
-    flex: 2;
+    width: 40%;
+    
+    & > div{
+      margin: 0 auto;
+      
+    }
+    .timer-left{
+      font-size: 2.5rem;
+  
+    }
   }
 }

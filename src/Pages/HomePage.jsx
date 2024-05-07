@@ -27,7 +27,6 @@ const HomePage = () => {
     <div className="home-page">
       <Timer />
       <CurrentWatching />
-    
     </div>
   );
 };
