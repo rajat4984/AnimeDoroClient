@@ -43,8 +43,8 @@ const Timer = () => {
     <div className="timer">
       <CountdownCircleTimer
         isPlaying={isPlaying}
-        duration={pomoTime * 60}
-  
+        // duration={pomoTime * 60}
+        duration={5}
         colors={' #f35757'}
         strokeLinecap={'round'}
         strokeWidth={6}
