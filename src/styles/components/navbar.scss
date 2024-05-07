@@ -16,7 +16,8 @@
 
   .nav-links {
     display: flex;
-    // align-self: flex-end;  
+    cursor: pointer;
+    
 
     & > div:first-child {
       margin-right: .7em;
@@ -41,6 +42,7 @@
   @include sm {
     .nav-links {
       align-self: center;
+  
 
       & > div {
         margin: 0 1em;

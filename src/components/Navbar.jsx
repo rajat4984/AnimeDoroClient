@@ -30,9 +30,9 @@ const Navbar = () => {
   };
   return (
     <nav className="navbar">
-      <div className="brand">
+      <Link to="/" className="brand">
         <h1>AnimeDoro</h1>
-      </div>
+      </Link>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
