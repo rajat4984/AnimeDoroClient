@@ -20,3 +20,24 @@ a{
   text-decoration: none;
   color: $text-light;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $background--light;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $text-light;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $text-dark
+}

@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import '../styles/components/timer.scss';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addPomoData } from '../redux/chartSlice/chartSlice';
+import { useCookies } from 'react-cookie';
 const Timer = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const userState = useSelector((store) => store.user);
+  const [cookies, setCookie, removeCookie] = useCookies();
+
+  const dispatch = useDispatch();
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 468px)');
     const handleMediaQueryChange = (event) => {
@@ -39,6 +44,7 @@ const Timer = () => {
       <CountdownCircleTimer
         isPlaying={isPlaying}
         duration={pomoTime * 60}
+  
         colors={' #f35757'}
         strokeLinecap={'round'}
         strokeWidth={6}
@@ -47,6 +53,12 @@ const Timer = () => {
         onComplete={() => {
           setIsPlaying(false);
           playAudio('/assets/sounds/bell.wav');
+          const paramsObj = {
+            userId: userState.user.userId,
+            minutes: pomoTime,
+            token:cookies.accessToken
+          };
+          dispatch(addPomoData(paramsObj));
         }}
       >
         {children}

@@ -6,6 +6,7 @@ const initialState = {
     music: 'On',
     pomoTime: 25,
   },
+  
 };
 
 const globalSlice = new createSlice({

@@ -1,13 +1,12 @@
 import { IoClose } from 'react-icons/io5';
 import '../styles/components/cardpage.scss';
-import { delay, motion } from 'framer-motion';
+import {motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCardPage } from '../redux/chartSlice/chartSlice';
 import BarChart from './BarChart';
 import { GoClock } from 'react-icons/go';
 import { SlCalender } from 'react-icons/sl';
 import { AiOutlineFire } from 'react-icons/ai';
-import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrPrevious } from "react-icons/gr";
 
 const CardPage = () => {

@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { PURGE } from 'redux-persist';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const initialState = {
   user: {},
   isLoading: false,
   error: '',
 };
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 const register = createAsyncThunk(
   '/auth/register',
