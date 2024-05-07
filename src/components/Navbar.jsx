@@ -13,9 +13,9 @@ const Navbar = () => {
   const userState = useSelector((store) => store.user);
   return (
     <nav className="navbar">
-      <Link to="/" className="brand">
+      <div className="brand">
         <h1>AnimeDoro</h1>
-      </Link>
+      </div>
       <div className="nav-links">
         <div>
           <span className="mob-links">
@@ -31,7 +31,7 @@ const Navbar = () => {
           <span className="desktop-links">Anime</span>
         </div>
       </div>
-
+      
       <div className="nav-links">
         <div
           onClick={() => {

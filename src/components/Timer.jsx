@@ -5,13 +5,20 @@ import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 const Timer = () => {
-  const { pomoTime } = useSelector((store) => store.global.popupSettings);
+  const { pomoTime, music } = useSelector(
+    (store) => store.global.popupSettings
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const children = ({ remainingTime }) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
 
     return <div className="timer-left">{`${minutes}:${seconds}`}</div>;
+  };
+
+  const playAudio = (audioName) => {
+    let audio = new Audio(audioName);
+    if (music === 'On') audio.play();
   };
   return (
     <div className="timer">
@@ -24,7 +31,7 @@ const Timer = () => {
         trailColor={'#ffcccc'}
         onComplete={() => {
           setIsPlaying(false);
-          console.log('Pomo Completed');
+          playAudio('/assets/sounds/bell.wav');
         }}
       >
         {children}
@@ -33,9 +40,21 @@ const Timer = () => {
       <div className="timer-btn">
         <div>
           {isPlaying ? (
-            <FaPauseCircle size={30} onClick={() => setIsPlaying(false)} />
+            <FaPauseCircle
+              size={30}
+              onClick={() => {
+                playAudio('/assets/sounds/btn-click.wav');
+                setIsPlaying(false);
+              }}
+            />
           ) : (
-            <FaPlayCircle size={30} onClick={() => setIsPlaying(true)} />
+            <FaPlayCircle
+              size={30}
+              onClick={() => {
+                playAudio('/assets/sounds/btn-click.wav');
+                setIsPlaying(true);
+              }}
+            />
           )}
         </div>
       </div>

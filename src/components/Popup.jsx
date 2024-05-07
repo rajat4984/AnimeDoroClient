@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../styles/components/popup.scss';
-import {
-  changePopup,
-  updatePopup,
-} from '../redux/globalSlice/globalSlice';
+import { changePopup, updatePopup } from '../redux/globalSlice/globalSlice';
 import { useState } from 'react';
 const Popup = () => {
   const { isOpen, theme, music, pomoTime } = useSelector(
@@ -53,20 +50,12 @@ const Popup = () => {
                 <option>60</option>
                 <option>45</option>
                 <option>25</option>
+                <option>1</option>
               </select>
             </div>
-            <div className='btn-group'>
+            <div className="btn-group">
               <button type="submit" className="save-btn">
                 Save
-              </button>
-
-              <button
-                onClick={() => {
-                  setPopupSettings(dispatch(updatePopup('close')));
-                }}
-                className="cancel-btn"
-              >
-                Cancel
               </button>
             </div>
           </form>

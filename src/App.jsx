@@ -9,7 +9,11 @@ import Popup from './components/Popup';
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
-
+  window.addEventListener("beforeunload", (ev) => 
+  {  
+      ev.preventDefault();
+      return ev.returnValue = 'Are you sure you want to close?';
+  });
   return (
     <>
       <Navbar />
