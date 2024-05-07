@@ -33,13 +33,13 @@ const Popup = () => {
                 <option>Off</option>
               </select>
             </div>
-            <div className="form-item">
+            {/* <div className="form-item">
               <label>Theme</label>
               <select onChange={handleOptionsChange} value={theme} name="theme">
                 <option>Light</option>
                 <option>Dark</option>
               </select>
-            </div>
+            </div> */}
             <div className="form-item">
               <label>Pomo Time</label>
               <select

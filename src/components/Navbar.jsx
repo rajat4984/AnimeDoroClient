@@ -6,16 +6,65 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopUp } from '../redux/globalSlice/globalSlice';
 import { toggleCardPage } from '../redux/chartSlice/chartSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
+import persistStore from 'redux-persist/es/persistStore';
+import { store } from '../redux/store';
+import { useCookies } from 'react-cookie';
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const userState = useSelector((store) => store.user);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const open = Boolean(anchorEl);
+  const persistor = persistStore(store);
+  const nagivate = useNavigate();
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <nav className="navbar">
       <div className="brand">
         <h1>AnimeDoro</h1>
       </div>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem
+          sx={{ color: '#f75151' }}
+          onClick={() => {
+            dispatch(toggleCardPage());
+            handleClose();
+          }}
+        >
+          Stats
+        </MenuItem>
+
+        <MenuItem
+          sx={{ color: '#f75151' }}
+          onClick={() => {
+            persistor.purge();
+            removeCookie('accessToken')
+            removeCookie('refreshToken',{path:'/'})
+            handleClose();
+            nagivate('/auth');
+          }}
+        >
+          Logout
+        </MenuItem>
+      </Menu>
       <div className="nav-links">
         <div>
           <span className="mob-links">
@@ -31,7 +80,7 @@ const Navbar = () => {
           <span className="desktop-links">Anime</span>
         </div>
       </div>
-      
+
       <div className="nav-links">
         <div
           onClick={() => {
@@ -43,16 +92,12 @@ const Navbar = () => {
           </span>
           <span className="desktop-links">Settings</span>
         </div>
-        {userState.user.userId ? (
-          <div
-            onClick={() => {
-              dispatch(toggleCardPage());
-            }}
-          >
-            <span className="mob-links loggedIn">
+        {cookies.accessToken ? (
+          <div>
+            <span onClick={handleClick} className="mob-links loggedIn">
               {userState.user.username.slice(0, 1).toUpperCase()}
             </span>
-            <span className="desktop-links loggedIn">
+            <span onClick={handleClick} className="desktop-links loggedIn">
               {userState.user.username.slice(0, 1).toUpperCase()}
             </span>
           </div>

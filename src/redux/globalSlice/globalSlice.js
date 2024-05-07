@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   popupSettings: {
     isOpen: false,
-    theme: 'light',
     music: 'On',
     pomoTime: 25,
   },

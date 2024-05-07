@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { PURGE } from 'redux-persist';
 
 const initialState = {
   user: {},
@@ -71,10 +72,14 @@ const userSlice = createSlice({
 
       state.user = { email, username, userId, pomoData };
     });
-    builder.addCase(login.rejected, (state, action) => {
-      state.isLoading = false;
-      console.log(action, 'actionr');
-    });
+    builder
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        console.log(action, 'actionr');
+      })
+      .addCase(PURGE, () => {
+        return initialState;
+      });
   },
 });
 

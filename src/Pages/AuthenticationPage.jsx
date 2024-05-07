@@ -1,10 +1,19 @@
 import '../styles/pages/authentication.scss';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const AuthenticationPage = () => {
   const [formSwitch, setFormSwitch] = useState('login');
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(cookies.accessToken)
+    navigate('/')
+  }, []);
 
   return (
     <div className="authentication-page">
@@ -23,9 +32,13 @@ const AuthenticationPage = () => {
             </label>
           </div>
         </div>
-        {formSwitch === 'login' ? <LoginForm /> : <SignupForm setFormSwitch={setFormSwitch} />}
+        {formSwitch === 'login' ? (
+          <LoginForm />
+        ) : (
+          <SignupForm setFormSwitch={setFormSwitch} />
+        )}
       </div>
-      <div className='image'>
+      <div className="image">
         <img src="/assets/images/authImage.svg" />
       </div>
     </div>
