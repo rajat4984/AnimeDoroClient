@@ -14,6 +14,7 @@ const addPomoData = createAsyncThunk(
   '/users/addPomoData',
   async ({ userId, minutes, token }, { rejectWithValue }) => {
     try {
+      console.log('token', token);
       const res = await axios.post(
         `${API_URL}/users/addPomoData`,
         {
