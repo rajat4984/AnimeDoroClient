@@ -12,15 +12,22 @@ import { Data } from '../data';
 import { useEffect, useState } from 'react';
 
 const CardPage = () => {
-  const { isOpen: isChartOpen, data } = useSelector((store) => store.chart);
+  const { data: chartData } = useSelector((store) => store.chart);
+  // console.log(chartState, 'chartState');
+  const { isOpen: isChartOpen } = useSelector((store) => store.chart);
+  const userState = useSelector((store) => store.user);
+  // console.log(data, 'data');
+  // console.log(userState, 'userState');
   const dispatch = useDispatch();
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(7);
   // const firstSevenData = Data.slice(start, end);
-  const [firstSevenData, setFirstSevenData] = useState(Data.slice(start, end));
+  const [firstSevenData, setFirstSevenData] = useState(
+    chartData.pomoData.slice(start, end)
+  );
 
   useEffect(() => {
-    setFirstSevenData(Data.slice(start, end));
+    setFirstSevenData(chartData.pomoData.slice(start, end));
   }, [start, end]);
 
   const animateVariants = {
@@ -59,8 +66,6 @@ const CardPage = () => {
         className="close-btn"
         onClick={() => {
           dispatch(toggleCardPage());
-          setStart(0);
-          setEnd(7);
         }}
       />
       <div className="activities">
@@ -71,7 +76,14 @@ const CardPage = () => {
               <GoClock size={18} />
             </div>
 
-            <p>10.2</p>
+            <p>
+              {chartData.pomoData
+                .reduce((total, item) => {
+                  console.log(item.TotalTime, 'HEllo');
+                  return (total + item.TotalTime) / 60;
+                }, 0)
+                .toFixed(2)}
+            </p>
             <p>hours focused</p>
           </div>
 
@@ -80,7 +92,7 @@ const CardPage = () => {
               <SlCalender size={18} />
             </div>
 
-            <p>25</p>
+            <p>{chartData.pomoData.length}</p>
             <p>days accessed</p>
           </div>
 
@@ -89,7 +101,7 @@ const CardPage = () => {
               <AiOutlineFire size={18} />
             </div>
 
-            <p>2</p>
+            <p>{chartData.streak}</p>
             <p>days streak</p>
           </div>
         </div>

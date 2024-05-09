@@ -57,8 +57,9 @@ const userSlice = createSlice({
         username,
         _id: userId,
         pomoData,
+        streak,
       } = action.payload.data.user;
-      state.user = { email, username, userId, pomoData };
+      state.user = { email, username, userId, pomoData, streak };
     });
 
     //login
@@ -68,9 +69,15 @@ const userSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
 
-      const { email, username, _id: userId, pomoData } = action.payload.data;
+      const {
+        email,
+        username,
+        _id: userId,
+        pomoData,
+        streak,
+      } = action.payload.data;
 
-      state.user = { email, username, userId, pomoData };
+      state.user = { email, username, userId, pomoData, streak };
     });
     builder
       .addCase(login.rejected, (state, action) => {

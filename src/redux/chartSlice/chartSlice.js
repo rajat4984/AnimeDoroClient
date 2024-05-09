@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const initialState = {
   isOpen: false,
-  data: [],
+  data: {},
   error: '',
   isLoading: false,
 };
@@ -49,7 +49,7 @@ const getPomoData = createAsyncThunk(
           },
         }
       );
-      return res.data.pomoData;
+      return res.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.data);
@@ -74,7 +74,6 @@ const chartSlice = createSlice({
     });
     builder.addCase(addPomoData.rejected, (state, action) => {
       state.isLoading = false;
-
       state.error = action.payload;
     });
     builder.addCase(getPomoData.pending, (state, action) => {
@@ -82,7 +81,11 @@ const chartSlice = createSlice({
     });
     builder.addCase(getPomoData.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      console.log(action.payload,'actionaction')
+      state.data = {
+        pomoData: action.payload.pomoData,
+        streak: action.payload.streak,
+      };
     });
     builder
       .addCase(getPomoData.rejected, (state, action) => {
