@@ -5,7 +5,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopUp } from '../redux/globalSlice/globalSlice';
-import { toggleCardPage } from '../redux/chartSlice/chartSlice';
+import { getPomoData, toggleCardPage } from '../redux/chartSlice/chartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -46,6 +46,12 @@ const Navbar = () => {
           sx={{ color: '#f75151' }}
           onClick={() => {
             dispatch(toggleCardPage());
+            dispatch(
+              getPomoData({
+                userId: userState.user.userId,
+                token: cookies.accessToken,
+              })
+            );
             handleClose();
           }}
         >
@@ -56,8 +62,8 @@ const Navbar = () => {
           sx={{ color: '#f75151' }}
           onClick={() => {
             persistor.purge();
-            removeCookie('accessToken')
-            removeCookie('refreshToken',{path:'/'})
+            removeCookie('accessToken');
+            removeCookie('refreshToken', { path: '/' });
             handleClose();
             nagivate('/auth');
           }}

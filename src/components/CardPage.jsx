@@ -1,21 +1,45 @@
 import { IoClose } from 'react-icons/io5';
 import '../styles/components/cardpage.scss';
-import {motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCardPage } from '../redux/chartSlice/chartSlice';
 import BarChart from './BarChart';
 import { GoClock } from 'react-icons/go';
 import { SlCalender } from 'react-icons/sl';
 import { AiOutlineFire } from 'react-icons/ai';
-import { GrPrevious } from "react-icons/gr";
+import { GrPrevious } from 'react-icons/gr';
+import { Data } from '../data';
+import { useEffect, useState } from 'react';
 
 const CardPage = () => {
-  const { isOpen: isChartOpen } = useSelector((store) => store.chart);
+  const { isOpen: isChartOpen, data } = useSelector((store) => store.chart);
   const dispatch = useDispatch();
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(7);
+  // const firstSevenData = Data.slice(start, end);
+  const [firstSevenData, setFirstSevenData] = useState(Data.slice(start, end));
+
+  useEffect(() => {
+    setFirstSevenData(Data.slice(start, end));
+  }, [start, end]);
 
   const animateVariants = {
     open: { opacity: 1, y: 0, x: 5 },
     close: { opacity: 0, y: 1600 },
+  };
+
+  const handleNext = () => {
+    if (end < Data.length - 1) {
+      setStart((prev) => prev + 1);
+      setEnd((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (start > 0) {
+      setStart((prev) => prev - 1);
+      setEnd((prev) => prev - 1);
+    }
   };
 
   return (
@@ -35,6 +59,8 @@ const CardPage = () => {
         className="close-btn"
         onClick={() => {
           dispatch(toggleCardPage());
+          setStart(0);
+          setEnd(7);
         }}
       />
       <div className="activities">
@@ -74,7 +100,12 @@ const CardPage = () => {
         <div className="flex">
           <div className="time">
             <div className="month">
-              <input defaultChecked id="month" type="radio" name="time-period" />
+              <input
+                defaultChecked
+                id="month"
+                type="radio"
+                name="time-period"
+              />
               <label htmlFor="month">Month</label>
             </div>
             <div className="week">
@@ -82,12 +113,12 @@ const CardPage = () => {
               <label htmlFor="week">Week</label>
             </div>
           </div>
-          <div className='btn-group'>
-            <GrPrevious className='prev-btn' size={10}/>
-            <GrPrevious className='next-btn' size={10}/>
+          <div className="btn-group">
+            <GrPrevious className="prev-btn" onClick={handlePrev} size={10} />
+            <GrPrevious className="next-btn" onClick={handleNext} size={10} />
           </div>
         </div>
-        <BarChart/>
+        <BarChart data={firstSevenData} />
       </div>
     </motion.div>
   );

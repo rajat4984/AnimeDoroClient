@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { PURGE } from 'redux-persist';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,7 +28,6 @@ const addPomoData = createAsyncThunk(
           },
         }
       );
-      console.log(res, 'addData');
       return res;
     } catch (error) {
       console.log(error);
@@ -36,30 +36,65 @@ const addPomoData = createAsyncThunk(
   }
 );
 
+const getPomoData = createAsyncThunk(
+  '/users/getPomoData',
+  async ({ userId, token }, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(
+        `${API_URL}/users/getPomoData`,
+        { userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data.pomoData;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const chartSlice = createSlice({
   name: 'chart',
   initialState,
+  reducers: {
+    toggleCardPage: (state, action) => {
+      state.isOpen = !state.isOpen;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addPomoData.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(addPomoData.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action, 'resaction');
     });
     builder.addCase(addPomoData.rejected, (state, action) => {
       state.isLoading = false;
-      console.log(action, 'erroraction');
+
       state.error = action.payload;
     });
-  },
-  reducers: {
-    toggleCardPage: (state, action) => {
-      state.isOpen = !state.isOpen;
-    },
+    builder.addCase(getPomoData.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getPomoData.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+    });
+    builder
+      .addCase(getPomoData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(PURGE, () => {
+        return initialState;
+      });
   },
 });
 
-export { addPomoData };
+export { addPomoData, getPomoData };
 export const { toggleCardPage } = chartSlice.actions;
 export default chartSlice.reducer;
