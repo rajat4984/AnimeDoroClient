@@ -109,8 +109,7 @@ const CardPage = () => {
       <hr />
 
       <div className="chart-info">
-        <div className="flex">
-          <div className="time">
+        {/* <div className="time">
             <div className="month">
               <input
                 defaultChecked
@@ -124,12 +123,12 @@ const CardPage = () => {
               <input id="week" type="radio" name="time-period" />
               <label htmlFor="week">Week</label>
             </div>
-          </div>
-          <div className="btn-group">
-            <GrPrevious className="prev-btn" onClick={handlePrev} size={10} />
-            <GrPrevious className="next-btn" onClick={handleNext} size={10} />
-          </div>
+          </div> */}
+        <div className="btn-group">
+          <GrPrevious className="prev-btn" onClick={handlePrev} size={10} />
+          <GrPrevious className="next-btn" onClick={handleNext} size={10} />
         </div>
+
         <BarChart data={firstSevenData} />
       </div>
     </motion.div>

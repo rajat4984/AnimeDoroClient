@@ -11,10 +11,10 @@ import Popup from './components/Popup';
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
 
- const popupVariants = {
-  open:{opacity:1},
-  close:{opacity:0}
- }
+  const popupVariants = {
+    open: { opacity: 1 },
+    close: { opacity: 0 },
+  };
   return (
     <>
       <Navbar />
