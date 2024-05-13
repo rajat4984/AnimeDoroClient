@@ -23,11 +23,11 @@ const CardPage = () => {
   const [end, setEnd] = useState(7);
   // const firstSevenData = Data.slice(start, end);
   const [firstSevenData, setFirstSevenData] = useState(
-    chartData.pomoData.slice(start, end)
+    chartData?.pomoData?.slice(start, end)
   );
 
   useEffect(() => {
-    setFirstSevenData(chartData.pomoData.slice(start, end));
+    setFirstSevenData(chartData?.pomoData?.slice(start, end));
   }, [start, end]);
 
   const animateVariants = {
@@ -77,8 +77,7 @@ const CardPage = () => {
             </div>
 
             <p>
-              {chartData.pomoData
-                .reduce((total, item) => {
+              {chartData?.pomoData?.reduce((total, item) => {
                   console.log(item.TotalTime, 'HEllo');
                   return (total + item.TotalTime) / 60;
                 }, 0)
@@ -92,7 +91,7 @@ const CardPage = () => {
               <SlCalender size={18} />
             </div>
 
-            <p>{chartData.pomoData.length}</p>
+            <p>{chartData?.pomoData?.length}</p>
             <p>days accessed</p>
           </div>
 
@@ -101,7 +100,7 @@ const CardPage = () => {
               <AiOutlineFire size={18} />
             </div>
 
-            <p>{chartData.streak}</p>
+            <p>{chartData?.streak}</p>
             <p>days streak</p>
           </div>
         </div>

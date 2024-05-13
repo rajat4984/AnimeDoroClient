@@ -80,10 +80,10 @@ const Navbar = () => {
         </div>
 
         <div>
-          <span className="mob-links">
+          <Link to="/anime" className="mob-links">
             <PiTelevision />
-          </span>
-          <span className="desktop-links">Anime</span>
+          </Link>
+          <Link to="/anime" className="desktop-links">Anime</Link>
         </div>
       </div>
 

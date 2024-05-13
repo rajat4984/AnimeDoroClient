@@ -7,9 +7,6 @@ import { format } from 'date-fns';
 Chart.register(CategoryScale);
 
 const BarChart = ({ data, isWeek }) => {
-  data.map((item) => {
-    console.log(typeof item.pomoDate, 'itemitem');
-  });
 
   let monthDataObj = {
     labels: data?.map((item) => format(new Date(item.pomoDate), 'dd/MM/yyyy')),

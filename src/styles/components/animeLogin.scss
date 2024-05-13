@@ -1,0 +1,34 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.anime-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3.5em;
+
+    img{
+        width: 300px;
+
+    }
+  button {
+    cursor: pointer;
+    margin-top: 0.8em;
+    text-align: center;
+    background-color: $primary-red;
+    color: $background--light;
+    border: none;
+    outline: none;
+    padding: 0.2em 1em;
+    border-radius: 5px;
+    box-shadow: 0px 6px 0px #ffcccc;
+    width: 100%;
+
+  }
+
+  @include lg{
+    img{
+        width: 500px;
+    }
+  }
+}
