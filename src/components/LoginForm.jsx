@@ -29,7 +29,6 @@ const LoginForm = () => {
     if (res.type === '/auth/login/fulfilled') {
       setCookie('accessToken', res.payload.headers.authorization);
       toast.success('Logged In!');
-
       navigate('/');
     }
   };

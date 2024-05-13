@@ -8,27 +8,40 @@ import { GoClock } from 'react-icons/go';
 import { SlCalender } from 'react-icons/sl';
 import { AiOutlineFire } from 'react-icons/ai';
 import { GrPrevious } from 'react-icons/gr';
-import { Data } from '../data';
+import { format, startOfDay, sub } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 const CardPage = () => {
   const { data: chartData } = useSelector((store) => store.chart);
-  // console.log(chartState, 'chartState');
   const { isOpen: isChartOpen } = useSelector((store) => store.chart);
-  const userState = useSelector((store) => store.user);
-  // console.log(data, 'data');
-  // console.log(userState, 'userState');
   const dispatch = useDispatch();
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(7);
-  // const firstSevenData = Data.slice(start, end);
+  const [monthEnd, setMonthEnd] = useState(4);
   const [firstSevenData, setFirstSevenData] = useState(
-    chartData.pomoData.slice(start, end)
+    chartData?.pomoData?.slice(start, end)
   );
+  const [isWeek, setIsWeek] = useState(false);
+  const monthMap = new Map();
 
   useEffect(() => {
-    setFirstSevenData(chartData.pomoData.slice(start, end));
+    setFirstSevenData(chartData?.pomoData?.slice(start, end));
   }, [start, end]);
+
+  const getMonthsMap = () => {
+    for (let i = start; i < monthEnd; i++) {
+      let currentDate = startOfDay(new Date());
+      console.log(currentDate, 'currentbefore');
+      currentDate.setMonth(currentDate.getMonth() - i);
+
+      monthMap.set(currentDate, {});
+    }
+    console.log(monthMap, 'monthmap');
+  };
+
+  useEffect(() => {
+    getMonthsMap();
+  }, [isWeek, monthEnd]);
 
   const animateVariants = {
     open: { opacity: 1, y: 0, x: 5 },
@@ -36,7 +49,7 @@ const CardPage = () => {
   };
 
   const handleNext = () => {
-    if (end < Data.length - 1) {
+    if (end < chartData?.pomoData?.length) {
       setStart((prev) => prev + 1);
       setEnd((prev) => prev + 1);
     }
@@ -46,6 +59,20 @@ const CardPage = () => {
     if (start > 0) {
       setStart((prev) => prev - 1);
       setEnd((prev) => prev - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (monthMap.get > startOfDay(new Date()).setMonth(startOfDay(new Date()).getMonth())) {
+      setMonthEnd((prev) => prev - 1);
+      setStart((prev) => prev - 1);
+    }
+  };
+
+  const handlePrevMonth = () => {
+    if (end <= 12) {
+      setMonthEnd((prev) => prev + 1);
+      setStart((prev) => prev + 1);
     }
   };
 
@@ -77,8 +104,8 @@ const CardPage = () => {
             </div>
 
             <p>
-              {chartData.pomoData
-                .reduce((total, item) => {
+              {chartData?.pomoData
+                ?.reduce((total, item) => {
                   console.log(item.TotalTime, 'HEllo');
                   return (total + item.TotalTime) / 60;
                 }, 0)
@@ -92,7 +119,7 @@ const CardPage = () => {
               <SlCalender size={18} />
             </div>
 
-            <p>{chartData.pomoData.length}</p>
+            <p>{chartData?.pomoData?.length}</p>
             <p>days accessed</p>
           </div>
 
@@ -101,7 +128,7 @@ const CardPage = () => {
               <AiOutlineFire size={18} />
             </div>
 
-            <p>{chartData.streak}</p>
+            <p>{chartData?.streak}</p>
             <p>days streak</p>
           </div>
         </div>
@@ -113,24 +140,43 @@ const CardPage = () => {
           <div className="time">
             <div className="month">
               <input
-                defaultChecked
                 id="month"
                 type="radio"
                 name="time-period"
+                onChange={() => {
+                  setIsWeek(false);
+                  setStart(0);
+                }}
               />
               <label htmlFor="month">Month</label>
             </div>
             <div className="week">
-              <input id="week" type="radio" name="time-period" />
+              <input
+                defaultChecked
+                id="week"
+                type="radio"
+                name="time-period"
+                onChange={() => {
+                  setIsWeek(true), setStart(0);
+                }}
+              />
               <label htmlFor="week">Week</label>
             </div>
           </div>
           <div className="btn-group">
-            <GrPrevious className="prev-btn" onClick={handlePrev} size={10} />
-            <GrPrevious className="next-btn" onClick={handleNext} size={10} />
+            <GrPrevious
+              className="prev-btn"
+              onClick={isWeek ? handlePrev : handlePrevMonth}
+              size={10}
+            />
+            <GrPrevious
+              className="next-btn"
+              onClick={isWeek ? handleNext : handleNextMonth}
+              size={10}
+            />
           </div>
         </div>
-        <BarChart data={firstSevenData} />
+        <BarChart isWeek={isWeek} data={firstSevenData} />
       </div>
     </motion.div>
   );

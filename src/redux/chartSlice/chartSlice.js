@@ -81,7 +81,6 @@ const chartSlice = createSlice({
     });
     builder.addCase(getPomoData.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload,'actionaction')
       state.data = {
         pomoData: action.payload.pomoData,
         streak: action.payload.streak,

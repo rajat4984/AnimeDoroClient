@@ -9,7 +9,7 @@ import { getPomoData, toggleCardPage } from '../redux/chartSlice/chartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import persistStore from 'redux-persist/es/persistStore';
 import { store } from '../redux/store';
 import { useCookies } from 'react-cookie';
@@ -22,12 +22,14 @@ const Navbar = () => {
   const open = Boolean(anchorEl);
   const persistor = persistStore(store);
   const nagivate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <nav className="navbar">
       <Link to="/" className="brand">
@@ -46,12 +48,7 @@ const Navbar = () => {
           sx={{ color: '#f75151' }}
           onClick={() => {
             dispatch(toggleCardPage());
-            dispatch(
-              getPomoData({
-                userId: userState.user.userId,
-                token: cookies.accessToken,
-              })
-            );
+
             handleClose();
           }}
         >

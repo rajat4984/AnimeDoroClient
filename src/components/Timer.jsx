@@ -3,7 +3,7 @@ import '../styles/components/timer.scss';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPomoData } from '../redux/chartSlice/chartSlice';
+import { addPomoData, getPomoData } from '../redux/chartSlice/chartSlice';
 import { useCookies } from 'react-cookie';
 const Timer = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -56,9 +56,15 @@ const Timer = () => {
           const paramsObj = {
             userId: userState.user.userId,
             minutes: pomoTime,
-            token:cookies.accessToken
+            token: cookies.accessToken,
           };
           dispatch(addPomoData(paramsObj));
+          dispatch(
+            getPomoData({
+              userId: userState.user.userId,
+              token: cookies.accessToken,
+            })
+          );
         }}
       >
         {children}
