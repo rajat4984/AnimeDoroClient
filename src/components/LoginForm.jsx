@@ -15,7 +15,7 @@ const LoginForm = () => {
     password: '',
   });
   const { isLoading } = useSelector((store) => store.user);
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const [cookies, setCookie, removeCookie] = useCookies(['access_token']);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const LoginForm = () => {
     e.preventDefault();
     const res = await dispatch(login(loginForm));
     if (res.type === '/auth/login/fulfilled') {
-      setCookie('accessToken', res.payload.headers.authorization);
+      setCookie('access_token', res.payload.headers.authorization);
       toast.success('Logged In!');
 
       navigate('/');

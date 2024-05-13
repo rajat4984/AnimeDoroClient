@@ -11,7 +11,7 @@ const AuthenticationPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(cookies.accessToken)
+    if(cookies.access_token)
     navigate('/')
   }, []);
 

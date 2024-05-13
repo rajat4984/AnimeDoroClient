@@ -49,7 +49,7 @@ const Navbar = () => {
             dispatch(
               getPomoData({
                 userId: userState.user.userId,
-                token: cookies.accessToken,
+                token: cookies.access_token,
               })
             );
             handleClose();
@@ -62,7 +62,7 @@ const Navbar = () => {
           sx={{ color: '#f75151' }}
           onClick={() => {
             persistor.purge();
-            removeCookie('accessToken');
+            removeCookie('access_token');
             removeCookie('refreshToken', { path: '/' });
             handleClose();
             nagivate('/auth');
@@ -98,7 +98,7 @@ const Navbar = () => {
           </span>
           <span className="desktop-links">Settings</span>
         </div>
-        {cookies.accessToken ? (
+        {cookies.access_token ? (
           <div>
             <span onClick={handleClick} className="mob-links loggedIn">
               {userState.user.username.slice(0, 1).toUpperCase()}

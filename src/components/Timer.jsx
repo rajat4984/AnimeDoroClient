@@ -56,7 +56,7 @@ const Timer = () => {
           const paramsObj = {
             userId: userState.user.userId,
             minutes: pomoTime,
-            token:cookies.accessToken
+            token:cookies.access_token
           };
           dispatch(addPomoData(paramsObj));
         }}
