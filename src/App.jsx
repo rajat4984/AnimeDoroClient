@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AuthenticationPage from './Pages/AuthenticationPage';
 import HomePage from './Pages/HomePage';
 import CardPage from './components/CardPage';
@@ -10,9 +10,14 @@ import Popup from './components/Popup';
 import AnimePage from './Pages/AnimePage';
 import { useEffect } from 'react';
 import { getAccessToken, getProfileInfo } from './styles/utilities/malCalls';
+import { setMalUser } from './redux/userSlice/userSlice';
+import { useCookies } from 'react-cookie';
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
+  const [cookies, setCookie, removeCookie] = useCookies();
+
+  const dispatch = useDispatch();
   const handleCodeChallenge = async () => {
     function dec2hex(dec) {
       return ('0' + dec.toString(16)).substr(-2);
@@ -24,7 +29,7 @@ function App() {
       return Array.from(array, dec2hex).join('');
     }
 
-    const challenge = generateRandomString();
+  const challenge = generateRandomString();
 
     if (!sessionStorage.getItem('codeChallenge')) {
       sessionStorage.setItem('codeChallenge', challenge);
@@ -43,19 +48,17 @@ function App() {
 
       if (convertedArr[0] !== undefined) {
         const tokenResponse = await getAccessToken(convertedArr); //call for getting access token
-        sessionStorage.setItem('access_token', tokenResponse.data.access_token);
-        sessionStorage.setItem(
-          'refresh_token',
-          tokenResponse.data.refresh_token
-        );
-        sessionStorage.setItem('expires_in', tokenResponse.data.expires_in);
+        setCookie('mal_access_token', tokenResponse.data.access_token);
+        setCookie('mal_refresh_token', tokenResponse.data.refresh_token);
+        setCookie('expires_in', tokenResponse.data.expires_in);
 
         const profileResponse = await getProfileInfo();
-        sessionStorage.setItem('User', JSON.stringify(profileResponse.data));
-
+        dispatch(setMalUser(profileResponse.data));
+        // sessionStorage.setItem('User', JSON.stringify(profileResponse.data));
         // dispatch(loginSuccess(JSON.parse(sessionStorage.getItem("User"))));
       } else {
         // dispatch(loginSuccess(JSON.parse(sessionStorage.getItem("User"))));
+        // dispatch(setMalUser(profileResponse.data));
       }
     };
 
