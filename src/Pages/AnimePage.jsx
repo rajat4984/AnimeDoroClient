@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AnimeLogin from '../components/AnimeLogin';
 import AnimeSearch from '../components/AnimeSearch';
 
 const AnimePage = () => {
   return (
     <div>
-      {/* <AnimeLogin /> */}
-      <AnimeSearch />
+      <AnimeLogin />
+      {/* <AnimeSearch /> */}
     </div>
   );
 };
