@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
+import { getCookie } from './cookies';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 
 export const getAccessToken = async (convertedArr) => {
   console.log('CONVERTED ARR', convertedArr);
@@ -23,9 +23,17 @@ export const getAccessToken = async (convertedArr) => {
 };
 
 export async function getProfileInfo() {
-  return await axios.get(`${API_URL}/auth/get-profile-info`, {
-    params: {
-      access_token: sessionStorage.getItem('access_token'),
-    },
-  });
+  try {
+    return await axios.get(`${API_URL}/auth/get-profile-info`, {
+      params: {
+        access_token: getCookie('mal_access_token'),
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+export const getAnimeInfo = async (searchVal) => {
+  
+};

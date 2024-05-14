@@ -63,7 +63,7 @@ const Navbar = () => {
           onClick={() => {
             persistor.purge();
             removeCookie('access_token');
-            removeCookie('refreshToken', { path: '/' });
+            removeCookie('refresh_token', { path: '/' });
             handleClose();
             nagivate('/auth');
           }}
