@@ -1,32 +1,18 @@
 import '../styles/pages/home.scss';
 import Timer from '../components/Timer';
 import CurrentWatching from '../components/CurrentWatching';
-import Popup from '../components/Popup';
 import { useSelector } from 'react-redux';
-import CardPage from '../components/CardPage';
-import { useEffect } from 'react';
-
-//TODO - SETUP REACT TOSTIFY ONCE CREATED CONTEXT
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 const HomePage = () => {
   const { isOpen: chartOpen } = useSelector((store) => store.chart);
-
-  // useEffect(()=>{
-    // window.addEventListener('beforeunload',alertUser);
-
-  //   return ()=>{
-  //     window.addEventListener('beforeunload',alertUser);
-  //   }
-  // })
-
-  // const alertUser = ()=>{
-
-  // }
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   return (
     <div className="home-page">
       <Timer />
-      <CurrentWatching />
+      {cookies.mal_access_token && <CurrentWatching />}
     </div>
   );
 };

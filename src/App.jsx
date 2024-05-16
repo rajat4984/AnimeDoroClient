@@ -9,9 +9,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Popup from './components/Popup';
 import AnimePage from './Pages/AnimePage';
 import { useEffect } from 'react';
-import { getAccessToken, getProfileInfo } from './styles/utilities/malCalls';
+import { getAccessToken, getProfileInfo, getUserAnimeList } from './styles/utilities/malCalls';
 import { setMalUser } from './redux/userSlice/userSlice';
 import { useCookies } from 'react-cookie';
+import AnimeList from './Pages/AnimeList';
+import AnimeInfo from './Pages/AnimeInfo';
+import Footer from './components/Footer';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
@@ -47,19 +53,16 @@ function App() {
       });
 
       if (convertedArr[0] !== undefined) {
-        const tokenResponse = await getAccessToken(convertedArr); //call for getting access token
+        const tokenResponse = await getAccessToken(convertedArr); 
         setCookie('mal_access_token', tokenResponse.data.access_token);
         setCookie('mal_refresh_token', tokenResponse.data.refresh_token);
         setCookie('expires_in', tokenResponse.data.expires_in);
 
         const profileResponse = await getProfileInfo();
+        const userAnimeList =   await getUserAnimeList();
         dispatch(setMalUser(profileResponse.data));
-        // sessionStorage.setItem('User', JSON.stringify(profileResponse.data));
-        // dispatch(loginSuccess(JSON.parse(sessionStorage.getItem("User"))));
-      } else {
-        // dispatch(loginSuccess(JSON.parse(sessionStorage.getItem("User"))));
-        // dispatch(setMalUser(profileResponse.data));
-      }
+    
+      } 
     };
 
     getToken();
@@ -81,7 +84,10 @@ function App() {
         <Route path="/auth" element={<AuthenticationPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/anime" element={<AnimePage />} />
+        <Route path="/animeSearch/:animeName" element={<AnimeList />} />
+        <Route path="anime/:animeId" element={<AnimeInfo />} />
       </Routes>
+      {/* <Footer/> */}
 
       <motion.div variants={popupVariants} animate={isOpen ? 'open' : 'close'}>
         <Popup />

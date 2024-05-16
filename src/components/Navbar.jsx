@@ -63,6 +63,9 @@ const Navbar = () => {
           onClick={() => {
             persistor.purge();
             removeCookie('access_token');
+            removeCookie('mal_access_token');
+            removeCookie('mal_refresh_token');
+            removeCookie('expires_in');
             removeCookie('refresh_token', { path: '/' });
             handleClose();
             nagivate('/auth');
@@ -83,7 +86,9 @@ const Navbar = () => {
           <Link to="/anime" className="mob-links">
             <PiTelevision />
           </Link>
-          <Link to="/anime" className="desktop-links">Anime</Link>
+          <Link to="/anime" className="desktop-links">
+            Anime
+          </Link>
         </div>
       </div>
 

@@ -34,6 +34,6 @@ export async function getProfileInfo() {
   }
 }
 
-export const getAnimeInfo = async (searchVal) => {
-  
-};
+export const getUserAnimeList = async()=>{
+  const res = await axios('https://api.myanimelist.net/v2/users/{user_name}/animelist')
+}

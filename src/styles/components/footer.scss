@@ -1,0 +1,13 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.footer{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: .5em;
+    margin-top: 3em;
+    background-color: $text-dark;
+    color: $background--light;
+}
