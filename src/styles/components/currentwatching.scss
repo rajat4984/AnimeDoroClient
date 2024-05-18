@@ -4,6 +4,7 @@
 .current-watching {
   display: flex;
   justify-content: space-between;
+  font-weight: 600;
   align-items: center;
   position: fixed;
   bottom: 0%;
@@ -26,6 +27,7 @@
     }
     .main {
       color: $text-dark;
+      width: 100px;
     }
     .sub {
       opacity: 0.8;
@@ -43,6 +45,16 @@
     }
   }
 
+  @include md {
+    .current-anime-info {
+      .main {
+        width: 300px;
+        // width: 100%;
+        // background-color: red;
+      }
+    }
+  }
+
   @include lg {
     width: 40%;
     margin: 0 auto;
@@ -51,7 +63,7 @@
     bottom: 2%;
     box-shadow: 0px 3px 5px 1px rgba(247, 81, 81, 1);
 
-    .current-anime-info{
+    .current-anime-info {
       font-size: 1.5rem;
       font-weight: 600;
     }

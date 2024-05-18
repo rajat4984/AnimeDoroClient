@@ -9,15 +9,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Popup from './components/Popup';
 import AnimePage from './Pages/AnimePage';
 import { useEffect } from 'react';
-import { getAccessToken, getProfileInfo, getUserAnimeList } from './styles/utilities/malCalls';
+import {
+  getAccessToken,
+  getProfileInfo,
+  getUserAnimeList,
+} from './styles/utilities/malCalls';
 import { setMalUser } from './redux/userSlice/userSlice';
 import { useCookies } from 'react-cookie';
 import AnimeList from './Pages/AnimeList';
 import AnimeInfo from './Pages/AnimeInfo';
 import Footer from './components/Footer';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import UserProfile from './Pages/UserProfile';
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
@@ -35,12 +39,11 @@ function App() {
       return Array.from(array, dec2hex).join('');
     }
 
-  const challenge = generateRandomString();
+    const challenge = generateRandomString();
 
     if (!sessionStorage.getItem('codeChallenge')) {
       sessionStorage.setItem('codeChallenge', challenge);
     }
-    // setCodeChallenge(challenge); //code challenge and verifier are same in this authentication
   };
   useEffect(() => {
     // for getting token from mal server
@@ -53,16 +56,19 @@ function App() {
       });
 
       if (convertedArr[0] !== undefined) {
-        const tokenResponse = await getAccessToken(convertedArr); 
+        const tokenResponse = await getAccessToken(convertedArr);
         setCookie('mal_access_token', tokenResponse.data.access_token);
         setCookie('mal_refresh_token', tokenResponse.data.refresh_token);
         setCookie('expires_in', tokenResponse.data.expires_in);
 
         const profileResponse = await getProfileInfo();
-        const userAnimeList =   await getUserAnimeList();
-        dispatch(setMalUser(profileResponse.data));
-    
-      } 
+        const userAnimeList = await getUserAnimeList();
+        const paramsObj = {
+          profile: profileResponse.data,
+          animeList: userAnimeList.data,
+        };
+        dispatch(setMalUser(paramsObj));
+      }
     };
 
     getToken();
@@ -86,6 +92,7 @@ function App() {
         <Route path="/anime" element={<AnimePage />} />
         <Route path="/animeSearch/:animeName" element={<AnimeList />} />
         <Route path="anime/:animeId" element={<AnimeInfo />} />
+        <Route path="/userProfile" element={<UserProfile/>}/>
       </Routes>
       {/* <Footer/> */}
 

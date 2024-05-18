@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const initialState = {
   user: {},
-  malUser:{},
+  malUser: {},
   isLoading: false,
   error: '',
 };
@@ -46,11 +46,14 @@ const login = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers:{
-    setMalUser:(state,action)=>{
-      console.log(action,'malaction');
-      state.malUser = action.payload;
-    }
+  reducers: {
+    setMalUser: (state, action) => {
+      console.log(action, 'malaction');
+      state.malUser = {
+        ...action.payload.profile,
+        animeList:{...action.payload.animeList.data},
+      };
+    },
   },
   extraReducers: (builder) => {
     //register

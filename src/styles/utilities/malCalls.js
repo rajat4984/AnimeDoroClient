@@ -35,5 +35,13 @@ export async function getProfileInfo() {
 }
 
 export const getUserAnimeList = async()=>{
-  const res = await axios('https://api.myanimelist.net/v2/users/{user_name}/animelist')
+  try {
+    return await axios.get(`${API_URL}/users/getUserAnimeList`, {
+      params: {
+        access_token: getCookie('mal_access_token'),
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }

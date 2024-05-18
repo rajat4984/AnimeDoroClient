@@ -76,10 +76,12 @@ const Navbar = () => {
       </Menu>
       <div className="nav-links">
         <div>
-          <span className="mob-links">
+          <Link to="/" className="mob-links">
             <RxLapTimer />
-          </span>
-          <span className="desktop-links">Pomo</span>
+          </Link>
+          <Link to="/" className="desktop-links">
+            Pomo
+          </Link>
         </div>
 
         <div>

@@ -50,9 +50,12 @@ const AnimeInfo = () => {
               <p className="main">{anime.synopsis}</p>
               <button>Add to Current Watching</button>
             </div>
+      
           </div>
-
-          <Recommnend anime={anime}/>
+          <div className='anime-info-divider'>
+            <hr />
+          </div>
+          <Recommnend anime={anime} />
         </>
       )}
     </>

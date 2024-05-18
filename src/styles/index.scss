@@ -49,3 +49,13 @@ a{
   left: 50%;
   transform:translate(-50%,-50%);
 }
+
+.anime-info-divider{
+  width: 50%;
+  margin: 0 auto;
+}
+
+.anime-info-divider > hr{
+  // border: ;
+  border-top: 3px solid $text-dark;
+}
