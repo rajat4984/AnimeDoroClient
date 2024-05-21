@@ -5,12 +5,14 @@ import { GrPrevious } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
 import BarChart from '../components/BarChart';
 import ProfileChart from './../components/ProfileChart';
+import { useCookies } from 'react-cookie';
 
 const UserProfile = () => {
   const { data: chartData } = useSelector((store) => store.chart);
   const [start, setStart] = useState(0);
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [end, setEnd] = useState(7);
-  const [malSwitch, setMalSwitch] = useState('mal');
+  const [malSwitch, setMalSwitch] = useState('pomo');
   const [firstSevenData, setFirstSevenData] = useState(
     chartData?.pomoData?.slice(start, end)
   );
@@ -32,11 +34,11 @@ const UserProfile = () => {
       {
         label: 'Mal Stats',
         data: [
-          animeStats.mean_score,
-          animeStats.num_days,
-          animeStats.num_days_watched,
-          animeStats.num_items_completed,
-          animeStats.num_items_watching,
+          animeStats?.mean_score,
+          animeStats?.num_days,
+          animeStats?.num_days_watched,
+          animeStats?.num_items_completed,
+          animeStats?.num_items_watching,
         ],
         borderColor: '#dd5353',
         borderWidth: 1,
@@ -65,21 +67,38 @@ const UserProfile = () => {
   };
   return (
     <div className="user-profile">
-      <Profile />
+      {malSwitch === 'pomo' ? <></> : <Profile />}
+
       <div className="anime-info-divider">
         <hr />
       </div>
       <div className="flex">
         <div className="switch">
           <div className="mal">
-            <input defaultChecked id="mal" type="radio" name="profile-type" />
-            <label onClick={() => setMalSwitch('mal')} htmlFor="mal">
+            <input id="mal" type="radio" name="profile-type" />
+            <label
+              style={
+                cookies.mal_access_token
+                  ? {}
+                  : { pointerEvents: 'none', opacity: '0.5' }
+              }
+              onClick={() => setMalSwitch('mal')}
+              htmlFor="mal"
+            >
               Mal
             </label>
           </div>
           <div className="pomo">
-            <input id="pomo" type="radio" name="profile-type" />
-            <label onClick={() => setMalSwitch('pomo')} htmlFor="pomo">
+            <input defaultChecked id="pomo" type="radio" name="profile-type" />
+            <label
+              style={
+                cookies.access_token
+                  ? {}
+                  : { pointerEvents: 'none', opacity: '0.5' }
+              }
+              onClick={() => setMalSwitch('pomo')}
+              htmlFor="pomo"
+            >
               Pomo
             </label>
           </div>

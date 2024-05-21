@@ -33,6 +33,7 @@ const Navbar = () => {
       <Link to="/" className="brand">
         <h1>AnimeDoro</h1>
       </Link>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -42,20 +43,33 @@ const Navbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
+        {cookies.access_token ? (
+          <></>
+        ) : (
+          <MenuItem
+            sx={{ color: '#f75151' }}
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            <Link to="/auth">Pomo Login</Link>
+          </MenuItem>
+        )}
+
         <MenuItem
           sx={{ color: '#f75151' }}
           onClick={() => {
-            dispatch(toggleCardPage());
-            dispatch(
-              getPomoData({
-                userId: userState.user.userId,
-                token: cookies.access_token,
-              })
-            );
+            // dispatch(toggleCardPage());
+            // dispatch(
+            //   getPomoData({
+            //     userId: userState.user.userId,
+            //     token: cookies.access_token,
+            //   })
+            // );
             handleClose();
           }}
         >
-          Stats
+          <Link to="/userProfile">Account</Link>
         </MenuItem>
 
         <MenuItem
@@ -105,6 +119,7 @@ const Navbar = () => {
           </span>
           <span className="desktop-links">Settings</span>
         </div>
+
         {cookies.access_token ? (
           <div>
             <span onClick={handleClick} className="mob-links loggedIn">
@@ -112,6 +127,15 @@ const Navbar = () => {
             </span>
             <span onClick={handleClick} className="desktop-links loggedIn">
               {userState.user.username.slice(0, 1).toUpperCase()}
+            </span>
+          </div>
+        ) : cookies.mal_access_token ? (
+          <div>
+            <span onClick={handleClick} className="mob-links">
+              <img src={userState?.malUser?.picture} />
+            </span>
+            <span onClick={handleClick} className="desktop-links">
+              <img src={userState?.malUser?.picture} />
             </span>
           </div>
         ) : (

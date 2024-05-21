@@ -4,10 +4,6 @@ import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const userState = useSelector((store) => store.user);
-  console.log(
-    format(userState.malUser.joined_at, 'dd MMM yyy'),
-    'useruserState'
-  );
   return (
     <div className="profile">
       <div className='img-container'>
@@ -19,7 +15,7 @@ const Profile = () => {
         </p>
         <p>
           Joined :{' '}
-          <span>{format(userState?.malUser?.joined_at, 'dd MMM yyy')}</span>
+          <span>{  format(userState?.malUser?.joined_at, 'dd MMM yyy')}</span>
         </p>
         <p>
           Total Ep watched :{' '}

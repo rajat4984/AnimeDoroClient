@@ -5,9 +5,8 @@
   display: flex;
   justify-content: space-between;
   padding: 1em;
-  
 
-  .brand{
+  .brand {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -17,32 +16,43 @@
   .nav-links {
     display: flex;
     cursor: pointer;
-    
 
     & > div:first-child {
-      margin-right: .7em;
+      margin-right: 0.7em;
     }
 
     .desktop-links {
       display: none;
     }
 
-    .mob-links.loggedIn{
+    .mob-links.loggedIn {
       background-color: $secondary-red;
-      padding: 0 .5em;
-      border-radius: 50px;  
+      padding: 0 0.5em;
+      border-radius: 50px;
     }
-    .desktop-links.loggedIn{
+    .desktop-links.loggedIn {
       background-color: $secondary-red;
-      padding: 0 .5em;
-      border-radius: 50px; 
+      padding: 0 0.5em;
+      border-radius: 50px;
+    }
+
+    .mob-links img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+    }
+
+    .desktop-links img {
+
+      width: 60px;
+      height: 60px;
+      border-radius: 50px;
     }
   }
 
   @include sm {
     .nav-links {
       align-self: center;
-  
 
       & > div {
         margin: 0 1em;
@@ -58,7 +68,9 @@
     }
   }
 
-  @include lg {
-    // background-color: blue;
+  @include md {
+    .nav-links{
+      align-items: center;
+    }
   }
 }
