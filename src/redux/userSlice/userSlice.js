@@ -22,8 +22,8 @@ const register = createAsyncThunk(
 
       return res;
     } catch (error) {
-      // console.log(error);
-      return rejectWithValue(error);
+      console.log(error,'regierror');
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -71,6 +71,10 @@ const userSlice = createSlice({
       } = action.payload.data.user;
       state.user = { email, username, userId, pomoData, streak };
     });
+
+    builder.addCase(register.rejected, (state, action) => {
+      state.isLoading = false;
+    })
 
     //login
     builder.addCase(login.pending, (state, action) => {

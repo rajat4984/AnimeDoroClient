@@ -9,7 +9,7 @@ Chart.register(CategoryScale);
 const BarChart = ({ data, isWeek }) => {
 
   let monthDataObj = {
-    labels: data?.map((item) => format(new Date(item.pomoDate), 'dd/MM/yyyy')),
+    labels: data?.map((m) => format(new Date(item.pomoDate), 'dd/MM/yyyy')),
     datasets: [
       {
         label: 'Productive time month',

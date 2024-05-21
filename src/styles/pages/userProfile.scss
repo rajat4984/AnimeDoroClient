@@ -1,0 +1,101 @@
+@import '../base/_breakpoints';
+@import '../base/colors';
+
+.user-profile {
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p {
+      margin: 0;
+      text-align: center;
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    img {
+      border-radius: 50%;
+      height: 220px;
+      width: 220px;
+      border: 5px solid $text-dark;
+      margin: 1em;
+    }
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2em 1em;
+    margin-top: 3em;
+    .switch {
+      display: flex;
+      align-items: center;
+      border: 1px solid $primary-red;
+      width: max-content;
+      border-radius: 0.3em;
+
+      input[type='radio'] {
+        display: none;
+      }
+
+      .mal label {
+        border-radius: 0.3em 0 0 0.3em;
+      }
+
+      .pomo label {
+        border-radius: 0 0.3em 0.3em 0;
+      }
+
+      label {
+        transition: 0.1s;
+        padding: 0.3em;
+        font-size: 0.8rem;
+      }
+
+      input[type='radio']:checked + label {
+        background-color: $secondary-red;
+      }
+    }
+    .next-btn {
+      rotate: 180deg;
+    }
+  }
+  .bar-chart {
+    margin: 2em auto 0.5em auto;
+    height: 200px;
+    width: 250px;
+  }
+
+
+  @include md{
+    .profile{
+      flex-direction: row;
+      margin: 3em 2em 2em 2em;
+
+      p{
+        text-align: justify;
+      }
+    }
+
+    .flex{
+      justify-content: space-around;
+    }
+
+    .bar-chart{
+      height: 300px;
+      width: 500px;
+    }
+  }
+
+  @include lg{
+    .profile{
+      .img-container{
+        margin-right: 1em;
+      }
+    }
+  }
+}

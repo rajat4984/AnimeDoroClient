@@ -69,6 +69,13 @@ const signupForm = ({ setFormSwitch }) => {
       setTimeout(() => {
         setFormSwitch('login');
       }, 2000);
+    } else {
+      toast.error(res.payload, {
+        duration: 2000,
+        style: {
+          color: '#f75151',
+        },
+      });
     }
   };
   return (
