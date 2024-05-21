@@ -5,7 +5,6 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePopUp } from '../redux/globalSlice/globalSlice';
-import { getPomoData, toggleCardPage } from '../redux/chartSlice/chartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';

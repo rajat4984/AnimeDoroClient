@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react';
 import Profile from '../components/Profile';
 import '../styles/pages/userProfile.scss';
 import { GrPrevious } from 'react-icons/gr';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BarChart from '../components/BarChart';
 import ProfileChart from './../components/ProfileChart';
 import { useCookies } from 'react-cookie';
+import { getPomoData } from '../redux/chartSlice/chartSlice';
 
 const UserProfile = () => {
   const { data: chartData } = useSelector((store) => store.chart);
   const [start, setStart] = useState(0);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [end, setEnd] = useState(7);
-  const [malSwitch, setMalSwitch] = useState('pomo');
+  const [malSwitch, setMalSwitch] = useState(
+    cookies.mal_access_token ? 'mal' : 'pomo'
+  );
   const [firstSevenData, setFirstSevenData] = useState(
     chartData?.pomoData?.slice(start, end)
   );
   const animeStats = useSelector(
     (store) => store.user.malUser.anime_statistics
   );
-  // const [pomoData,setPomoData] = useState()
-  console.log(animeStats, 'usingstate');
+  const dispatch = useDispatch();
+  const { userId } = useSelector((store) => store.user.user);
 
   let malData = {
     labels: [
@@ -50,6 +53,10 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
+    dispatch(getPomoData({ userId, token: cookies.access_token }));
+  }, []);
+
+  useEffect(() => {
     setFirstSevenData(chartData?.pomoData?.slice(start, end));
   }, [start, end]);
   const handleNext = () => {
@@ -75,7 +82,12 @@ const UserProfile = () => {
       <div className="flex">
         <div className="switch">
           <div className="mal">
-            <input id="mal" type="radio" name="profile-type" />
+            <input
+              defaultChecked={cookies.mal_access_token ? true : false}
+              id="mal"
+              type="radio"
+              name="profile-type"
+            />
             <label
               style={
                 cookies.mal_access_token
@@ -89,7 +101,12 @@ const UserProfile = () => {
             </label>
           </div>
           <div className="pomo">
-            <input defaultChecked id="pomo" type="radio" name="profile-type" />
+            <input
+              defaultChecked={cookies.access_token ? true : false}
+              id="pomo"
+              type="radio"
+              name="profile-type"
+            />
             <label
               style={
                 cookies.access_token
