@@ -22,7 +22,7 @@ const register = createAsyncThunk(
 
       return res;
     } catch (error) {
-      console.log(error,'regierror');
+      console.log(error, 'regierror');
       return rejectWithValue(error.response.data);
     }
   }
@@ -51,7 +51,8 @@ const userSlice = createSlice({
       console.log(action, 'malaction');
       state.malUser = {
         ...action.payload.profile,
-        animeList:{...action.payload.animeList.data},
+        animeList: { ...action.payload.animeList.data },
+        currentWatching: action.payload.animeList.data.slice(-1),
       };
     },
   },
@@ -74,7 +75,7 @@ const userSlice = createSlice({
 
     builder.addCase(register.rejected, (state, action) => {
       state.isLoading = false;
-    })
+    });
 
     //login
     builder.addCase(login.pending, (state, action) => {

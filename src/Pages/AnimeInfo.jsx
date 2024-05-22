@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { CircularProgress } from '@mui/material';
 import Recommnend from '../components/Recommend';
+import { getUserAnimeList, updateAnimeList } from '../styles/utilities/malCalls';
 
 const AnimeInfo = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -32,6 +33,15 @@ const AnimeInfo = () => {
   useEffect(() => {
     getAnimeInfo();
   }, [animeId]);
+
+  const addToCurrentWatch = async()=>{
+    const res = await updateAnimeList(0,animeId);
+    const userAnimeList = await getUserAnimeList();
+
+
+
+    console.log(userAnimeList,'addCurrentwatch'); 
+  }
   return (
     <>
       {loading ? (
@@ -48,7 +58,7 @@ const AnimeInfo = () => {
               <h1>{anime.title}</h1>
               <p className="sub">Total episodes: {anime.num_episodes}</p>
               <p className="main">{anime.synopsis}</p>
-              <button>Add to Current Watching</button>
+              <button onClick={()=>addToCurrentWatch()}>Add to Current Watching</button>
             </div>
       
           </div>

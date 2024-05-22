@@ -34,7 +34,7 @@ export async function getProfileInfo() {
   }
 }
 
-export const getUserAnimeList = async()=>{
+export const getUserAnimeList = async () => {
   try {
     return await axios.get(`${API_URL}/users/getUserAnimeList`, {
       params: {
@@ -44,4 +44,15 @@ export const getUserAnimeList = async()=>{
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const updateAnimeList = async (updatedEpisode,animeId) => {
+  console.log(getCookie('mal_access_token'), 'cookieaccessToken');
+  try {
+    return await axios.put(`${API_URL}/anime/update-anime-list`, {
+      updatedEpisode,
+      animeId,
+      access_token: getCookie('mal_access_token'),
+    });
+  } catch (error) {}
+};

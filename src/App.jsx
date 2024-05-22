@@ -22,6 +22,7 @@ import Footer from './components/Footer';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import UserProfile from './Pages/UserProfile';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 function App() {
   const { isOpen } = useSelector((store) => store.global.popupSettings);
@@ -63,9 +64,15 @@ function App() {
 
         const profileResponse = await getProfileInfo();
         const userAnimeList = await getUserAnimeList();
+        // console.log(userAnimeList.data.slice(-1)[0].node.id,'userAnimeList.data.slice(-1)[0].node.id')
+        // console.log(userAnimeList.data,'usernimaelistdata')
+        // console.log(userAnimeList.data.slice(-1),'usernimaelistdata')
+        // console.log(userAnimeList.data.slice(-1)[0],'usernimaelistdata')
+        const animeInfo = await getAnimeInfo(userAnimeList?.data?.data?.slice(-1)[0]?.node?.id)
         const paramsObj = {
           profile: profileResponse.data,
           animeList: userAnimeList.data,
+          currentAnimeInfo : animeInfo
         };
         dispatch(setMalUser(paramsObj));
       }
@@ -73,6 +80,28 @@ function App() {
 
     getToken();
   }, []);
+
+
+const getList = async()=>{
+  const userAnimeList =  await getUserAnimeList();
+  console.log(userAnimeList?.data?.data?.slice(-1)[0]?.node?.id,'listlist')
+}
+
+getList();
+
+  
+
+  const getAnimeInfo = async (animeId) => {
+    try {
+      const res = await axios.post(`${API_URL}/anime/get-anime-info`, {
+        id: animeId,
+        access_token: cookies.mal_access_token,
+      });
+      console.log(res.data, 'animeanime');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     handleCodeChallenge();
@@ -92,7 +121,7 @@ function App() {
         <Route path="/anime" element={<AnimePage />} />
         <Route path="/animeSearch/:animeName" element={<AnimeList />} />
         <Route path="anime/:animeId" element={<AnimeInfo />} />
-        <Route path="/userProfile" element={<UserProfile/>}/>
+        <Route path="/userProfile" element={<UserProfile />} />
       </Routes>
       {/* <Footer/> */}
 

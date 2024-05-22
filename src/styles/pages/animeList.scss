@@ -4,6 +4,19 @@
 .anime-list {
   margin: 3.5em;
 
+  .anime-search {
+    img {
+      display: none;
+    }
+
+    input {
+      width: 200px;
+    }
+    button {
+      width: 80px;
+    }
+  }
+
   img {
     width: 100%;
     border-radius: 0.5em 0.5em 0 0;
@@ -22,20 +35,38 @@
 
       div:first-of-type {
         max-width: 100%;
-
       }
 
-      .anime-name{
+      .anime-name {
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
-        padding: .5em;
+        padding: 0.5em;
+      }
+    }
+  }
+
+  @include md {
+    .anime-search {
+      input {
+        width: 300px;
       }
     }
   }
 
   @include lg {
+    .anime-search {
+      input {
+        width: 400px;
+        height: 55px !important;
+      }
+
+      button {
+        width: 120px;
+        height: 55px !important;
+      }
+    }
     .grid {
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
