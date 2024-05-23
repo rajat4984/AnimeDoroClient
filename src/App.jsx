@@ -4,6 +4,7 @@ import HomePage from './Pages/HomePage';
 import CardPage from './components/CardPage';
 import Navbar from './components/Navbar';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Popup from './components/Popup';
@@ -18,15 +19,15 @@ import { setMalUser } from './redux/userSlice/userSlice';
 import { useCookies } from 'react-cookie';
 import AnimeList from './Pages/AnimeList';
 import AnimeInfo from './Pages/AnimeInfo';
-import Footer from './components/Footer';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import UserProfile from './Pages/UserProfile';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { isOpen } = useSelector((store) => store.global.popupSettings);
   const [cookies, setCookie, removeCookie] = useCookies();
+  const userState = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
   const handleCodeChallenge = async () => {
@@ -64,15 +65,15 @@ function App() {
 
         const profileResponse = await getProfileInfo();
         const userAnimeList = await getUserAnimeList();
-        // console.log(userAnimeList.data.slice(-1)[0].node.id,'userAnimeList.data.slice(-1)[0].node.id')
-        // console.log(userAnimeList.data,'usernimaelistdata')
-        // console.log(userAnimeList.data.slice(-1),'usernimaelistdata')
-        // console.log(userAnimeList.data.slice(-1)[0],'usernimaelistdata')
-        const animeInfo = await getAnimeInfo(userAnimeList?.data?.data?.slice(-1)[0]?.node?.id)
+        console.log(userAnimeList, 'userAnimeListuser');
+        const animeInfo = await getAnimeInfo({
+          animeId: userAnimeList?.data?.data?.slice(0,1)[0]?.node?.id,
+          token: tokenResponse.data.access_token,
+        });
         const paramsObj = {
           profile: profileResponse.data,
           animeList: userAnimeList.data,
-          currentAnimeInfo : animeInfo
+          currentAnimeInfo: animeInfo,
         };
         dispatch(setMalUser(paramsObj));
       }
@@ -82,26 +83,6 @@ function App() {
   }, []);
 
 
-const getList = async()=>{
-  const userAnimeList =  await getUserAnimeList();
-  console.log(userAnimeList?.data?.data?.slice(-1)[0]?.node?.id,'listlist')
-}
-
-getList();
-
-  
-
-  const getAnimeInfo = async (animeId) => {
-    try {
-      const res = await axios.post(`${API_URL}/anime/get-anime-info`, {
-        id: animeId,
-        access_token: cookies.mal_access_token,
-      });
-      console.log(res.data, 'animeanime');
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     handleCodeChallenge();
@@ -129,7 +110,7 @@ getList();
         <Popup />
       </motion.div>
 
-      <CardPage />
+      {/* <CardPage /> */}
     </>
   );
 }

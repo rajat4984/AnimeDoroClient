@@ -11,24 +11,29 @@ const CurrentWatching = () => {
   const [currentEpisode, setCurrentEpisode] = useState(0);
   const { currentWatching } = useSelector((store) => store.user.malUser);
 
-  useEffect(() => {
-    const getEpisode = async () => {
-      const res = await updateAnimeList(0);
-      console.log(res, 'resres');
-    };
+  // useEffect(() => {
+  //   const getEpisode = async () => {
+  //     const res = await updateAnimeList(0);
+  //     console.log(res, 'resres');
+  //   };
 
-    getEpisode();
-  }, []);
+  //   getEpisode();
+  // }, []);
   return (
     <>
       {currentWatching && (
         <div className="current-watching">
           <div className="cover-img">
-            <img src={currentWatching[0]?.node?.main_picture.medium} />
+            <img src={currentWatching.anime.main_picture.medium} />
           </div>
           <div className="current-anime-info">
-            <p className="main">{currentWatching[0]?.node?.title}</p>
-            <p className="sub">Ep: 12/24</p>
+            <p className="main">{currentWatching.anime.title}</p>
+            <p className="sub">
+              {currentWatching.anime.num_episodes_watched
+                ? currentWatching.anime.num_episodes_watched
+                : 0}
+              /{currentWatching.totalEp}
+            </p>
           </div>
           <div className="btn-container">
             <div>

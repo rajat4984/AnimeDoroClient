@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { PURGE } from 'redux-persist';
 
@@ -52,7 +52,27 @@ const userSlice = createSlice({
       state.malUser = {
         ...action.payload.profile,
         animeList: { ...action.payload.animeList.data },
-        currentWatching: action.payload.animeList.data.slice(-1),
+        currentWatching: {
+          anime: {
+            ...action.payload.currentAnimeInfo.my_list_status,
+            title: action.payload.currentAnimeInfo.title,
+            main_picture: action.payload.currentAnimeInfo.main_picture,
+            id: action.payload.currentAnimeInfo.id,
+          },
+          totalEp: action.payload.currentAnimeInfo.num_episodes,
+        },
+      };
+    },
+    setCurrentWatching: (state, action) => {
+      console.log('currentwatchingslice', action.payload);
+      state.malUser.currentWatching = {
+        anime: {
+          ...action.payload.my_list_status,
+          title: action.payload.title,
+          main_picture: action.payload.main_picture,
+          id: action.payload.id,
+        },
+        totalEp: action.payload.num_episodes,
       };
     },
   },
@@ -106,5 +126,5 @@ const userSlice = createSlice({
 });
 
 export { register, login };
-export const { setMalUser } = userSlice.actions;
+export const { setMalUser, setCurrentWatching } = userSlice.actions;
 export default userSlice.reducer;

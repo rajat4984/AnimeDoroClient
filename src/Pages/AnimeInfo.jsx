@@ -4,12 +4,12 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { CircularProgress } from '@mui/material';
+import { getAnimeInfo } from './../styles/utilities/malCalls';
 import { IoMdArrowBack } from 'react-icons/io';
+import toast, { Toaster } from 'react-hot-toast';
 import Recommnend from '../components/Recommend';
-import {
-  getUserAnimeList,
-  updateAnimeList,
-} from '../styles/utilities/malCalls';
+import { setCurrentWatching } from '../redux/userSlice/userSlice';
+import { useDispatch } from 'react-redux';
 
 const AnimeInfo = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -18,15 +18,16 @@ const AnimeInfo = () => {
   const [anime, setAnime] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const getAnimeInfo = async () => {
+  const getPageAnimeInfo = async () => {
     try {
       setLoading(true);
       const res = await axios.post(`${API_URL}/anime/get-anime-info`, {
         id: animeId,
         access_token: cookies.mal_access_token,
       });
-      console.log(res.data, 'animeanime');
+      // console.log(res.data, 'animeanime');
       setAnime(res.data);
     } catch (error) {
       console.log(error);
@@ -36,16 +37,26 @@ const AnimeInfo = () => {
   };
 
   useEffect(() => {
-    getAnimeInfo();
+    getPageAnimeInfo();
   }, [animeId]);
 
   const addToCurrentWatch = async () => {
-    const res = await updateAnimeList(0, animeId);
-    const userAnimeList = await getUserAnimeList();
-    console.log(userAnimeList, 'addCurrentwatch');
+    const res = await getAnimeInfo({
+      animeId,
+      token: cookies.mal_access_token,
+    });
+
+    dispatch(setCurrentWatching(res));
+    toast.success('Anime Added to Current Watching!', {
+      duration: 2000,
+      style: {
+        color: '#f75151',
+      },
+    });
   };
   return (
     <div className="anime-info-container">
+      <Toaster position="bottom-right" reverseOrder={true} />
       {loading ? (
         <div className="loader">
           <CircularProgress size={100} sx={{ color: '#f75151' }} />

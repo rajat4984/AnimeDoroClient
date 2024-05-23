@@ -42,7 +42,7 @@ export const getUserAnimeList = async () => {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.log(error,'getUseranimelisterror');
   }
 };
 
@@ -54,5 +54,21 @@ export const updateAnimeList = async (updatedEpisode,animeId) => {
       animeId,
       access_token: getCookie('mal_access_token'),
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error,'updateAnimeListeorr');
+    
+  }
+};
+
+export const getAnimeInfo = async ({ animeId, token }) => {
+  try {
+    const res = await axios.post(`${API_URL}/anime/get-anime-info`, {
+      id: animeId,
+      access_token: token,
+    });
+    console.log(res.data, 'animeanime');
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
