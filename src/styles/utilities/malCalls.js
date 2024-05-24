@@ -47,7 +47,7 @@ export const getUserAnimeList = async () => {
 };
 
 export const updateAnimeList = async (updatedEpisode,animeId) => {
-  console.log(getCookie('mal_access_token'), 'cookieaccessToken');
+  console.log(updatedEpisode,'updateedepisode')
   try {
     return await axios.put(`${API_URL}/anime/update-anime-list`, {
       updatedEpisode,

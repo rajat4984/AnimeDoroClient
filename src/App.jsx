@@ -12,6 +12,7 @@ import AnimePage from './Pages/AnimePage';
 import { useEffect } from 'react';
 import {
   getAccessToken,
+  getAnimeInfo,
   getProfileInfo,
   getUserAnimeList,
 } from './styles/utilities/malCalls';

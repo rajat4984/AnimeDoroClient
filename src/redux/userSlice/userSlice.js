@@ -64,7 +64,6 @@ const userSlice = createSlice({
       };
     },
     setCurrentWatching: (state, action) => {
-      console.log('currentwatchingslice', action.payload);
       state.malUser.currentWatching = {
         anime: {
           ...action.payload.my_list_status,
@@ -75,6 +74,16 @@ const userSlice = createSlice({
         totalEp: action.payload.num_episodes,
       };
     },
+    updateCurrentWatching:(state,action)=>{
+      console.log(action,'heloaction')
+      state.malUser.currentWatching = {
+        ...state.malUser.currentWatching,
+        anime:{
+          ...state.malUser.currentWatching.anime,
+          num_episodes_watched: action.payload
+        }
+      }
+    }
   },
   extraReducers: (builder) => {
     //register
@@ -126,5 +135,5 @@ const userSlice = createSlice({
 });
 
 export { register, login };
-export const { setMalUser, setCurrentWatching } = userSlice.actions;
+export const { setMalUser, setCurrentWatching ,updateCurrentWatching} = userSlice.actions;
 export default userSlice.reducer;
