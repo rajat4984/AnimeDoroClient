@@ -49,18 +49,26 @@ class Recommend extends Component {
 
     return (
       <div className="recommend">
-        <button
-          className="next-btn"
-          onClick={() => this.slider.current.slickNext()}
-        >
-          <MdNavigateNext size={40} />
-        </button>
-        <button
-          className="prev-btn"
-          onClick={() => this.slider.current.slickPrev()}
-        >
-          <MdNavigateNext style={{ transform: 'rotate(180deg)' }} size={40} />
-        </button>
+        {anime?.recommendations?.length && (
+          <>
+            <button
+              className="next-btn"
+              onClick={() => this.slider.current.slickNext()}
+            >
+              <MdNavigateNext size={40} />
+            </button>
+            <button
+              className="prev-btn"
+              onClick={() => this.slider.current.slickPrev()}
+            >
+              <MdNavigateNext
+                style={{ transform: 'rotate(180deg)' }}
+                size={40}
+              />
+            </button>
+          </>
+        )}
+
         <Slider ref={this.slider} {...settings}>
           {anime?.recommendations?.map((item) => (
             <Link
@@ -68,6 +76,7 @@ class Recommend extends Component {
               to={`/anime/${item.node.id}`}
               className="anime-card"
             >
+              {console.log(item, 'item')}
               <div className="img-container">
                 <img src={item.node.main_picture.large} alt={item.node.title} />
               </div>

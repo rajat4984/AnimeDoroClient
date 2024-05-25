@@ -13,14 +13,14 @@ const AnimeList = () => {
   const [animeList, setAnimeList] = useState();
   let { animeName } = useParams();
 
-  const searchAnime = async () => {
+  const searchAnime = async (searchedName) => {
     setLoading(true);
-    if (animeName !== '') {
+    if (searchedName !== '') {
       try {
         const res = await axios(`${API_URL}/anime/get-anime-list`, {
           params: {
             accessToken: cookies.mal_access_token,
-            searchValue: animeName,
+            searchValue: searchedName,
           },
         });
         console.log(res, 'animesearch');
@@ -35,7 +35,7 @@ const AnimeList = () => {
   };
 
   useEffect(() => {
-    searchAnime();
+    searchAnime(animeName);
   }, []);
   return (
     <>
@@ -47,7 +47,7 @@ const AnimeList = () => {
         ) : (
           <>
             <div>
-              <AnimeSearch />
+              <AnimeSearch searchAnime={searchAnime} />
             </div>
             <div className="grid">
               {animeList?.map((item) => {

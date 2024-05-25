@@ -2,7 +2,7 @@
 @import '../base/colors';
 
 .anime-info-container {
-  position: relative;
+  // position: relative;
 
   .back-icon {
     margin: 0.5em 1em;
@@ -10,7 +10,7 @@
   }
   .anime-info {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     flex-direction: column;
     align-items: center;
     margin: 1em;
@@ -52,9 +52,11 @@
     }
 
     @include md {
-      .info {
-        margin: 0 4em;
-      }
+     img{
+      width: 500px;
+      height: 500px;
+     }
+    
 
       .back-icon {
         margin: 10em;
