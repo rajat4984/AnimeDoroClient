@@ -72,7 +72,7 @@ const UserProfile = () => {
           removeCookie('mal_access_token');
           removeCookie('mal_refresh_token');
           removeCookie('expires_in');
-          removeCookie('refresh_token', { path: '/' });
+          removeCookie('refresh_token', { path: '/' })
           nagivate('/auth');
         }, 2000);
         toast.error(`${res.payload} please login again`, {
