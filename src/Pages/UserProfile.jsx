@@ -7,6 +7,11 @@ import BarChart from '../components/BarChart';
 import ProfileChart from './../components/ProfileChart';
 import { useCookies } from 'react-cookie';
 import { getPomoData } from '../redux/chartSlice/chartSlice';
+import toast, { Toaster } from 'react-hot-toast';
+
+import { useNavigate } from 'react-router-dom';
+import persistStore from 'redux-persist/es/persistStore';
+import { store } from '../redux/store';
 
 const UserProfile = () => {
   const { data: chartData } = useSelector((store) => store.chart);
@@ -24,6 +29,8 @@ const UserProfile = () => {
   );
   const dispatch = useDispatch();
   const { userId } = useSelector((store) => store.user.user);
+  const nagivate = useNavigate();
+  const persistor = persistStore(store);
 
   let malData = {
     labels: [
@@ -53,8 +60,32 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (cookies.access_token)
-      dispatch(getPomoData({ userId, token: cookies.access_token }));
+    const getData = async () => {
+      const res = await dispatch(
+        getPomoData({ userId, token: cookies.access_token })
+      );
+
+      if (res.payload === 'Access Token expired') {
+        setTimeout(() => {
+          persistor.purge();
+          removeCookie('access_token');
+          removeCookie('mal_access_token');
+          removeCookie('mal_refresh_token');
+          removeCookie('expires_in');
+          removeCookie('refresh_token', { path: '/' });
+          nagivate('/auth');
+        }, 2000);
+        toast.error(`${res.payload} please login again`, {
+          duration: 2000,
+          style: {
+            color: '#f75151',
+          },
+        });
+      }
+    };
+    if (cookies.access_token) {
+      getData();
+    }
   }, []);
 
   useEffect(() => {
@@ -75,7 +106,8 @@ const UserProfile = () => {
   };
   return (
     <div className="user-profile">
-      {malSwitch === 'pomo' ? <></> : <Profile />}
+      <Toaster position="bottom-right" reverseOrder={true} />
+      {cookies.mal_access_token && <Profile />}
 
       <div className="anime-info-divider">
         <hr />
@@ -84,7 +116,7 @@ const UserProfile = () => {
         <div className="switch">
           <div className="mal">
             <input
-              defaultChecked={cookies.mal_access_token ? true : false}
+              defaultChecked={malSwitch === 'mal' ? true : false}
               id="mal"
               type="radio"
               name="profile-type"
@@ -103,7 +135,7 @@ const UserProfile = () => {
           </div>
           <div className="pomo">
             <input
-              defaultChecked={cookies.access_token ? true : false}
+              defaultChecked={malSwitch === 'pomo' ? true : false}
               id="pomo"
               type="radio"
               name="profile-type"

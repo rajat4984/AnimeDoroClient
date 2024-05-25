@@ -122,10 +122,10 @@ const Navbar = () => {
         {cookies.access_token ? (
           <div>
             <span onClick={handleClick} className="mob-links loggedIn">
-              {userState.user.username.slice(0, 1).toUpperCase()}
+              {userState?.user?.username?.slice(0, 1).toUpperCase()}
             </span>
             <span onClick={handleClick} className="desktop-links loggedIn">
-              {userState.user.username.slice(0, 1).toUpperCase()}
+              {userState?.user?.username?.slice(0, 1).toUpperCase()}
             </span>
           </div>
         ) : cookies.mal_access_token ? (
