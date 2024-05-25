@@ -53,7 +53,8 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    dispatch(getPomoData({ userId, token: cookies.access_token }));
+    if (cookies.access_token)
+      dispatch(getPomoData({ userId, token: cookies.access_token }));
   }, []);
 
   useEffect(() => {

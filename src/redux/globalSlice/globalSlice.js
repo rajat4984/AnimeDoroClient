@@ -33,6 +33,7 @@ const globalSlice = new createSlice({
       };
     },
   },
+  
 });
 
 export const { togglePopUp, updatePopup, changePopup } = globalSlice.actions;

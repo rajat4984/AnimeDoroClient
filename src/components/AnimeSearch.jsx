@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/components/animeSearch.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-const AnimeSearch = ({searchAnime}) => {
+import { searchAnime } from '../styles/utilities/malCalls';
+const AnimeSearch = ({ animeList, setAnimeList, setLoading }) => {
   const [searchValue, setSearchValue] = useState('');
   const { animeName } = useParams();
   const navigate = useNavigate();
+
+  const handleSearch = async (searchedName) => {
+    try {
+      setLoading(true);
+      const res = await searchAnime(searchedName);
+      setAnimeList(res.data.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     setSearchValue(animeName);
@@ -19,7 +32,7 @@ const AnimeSearch = ({searchAnime}) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            searchAnime(searchValue);
+            handleSearch(searchValue);
             navigate(`/animeSearch/${searchValue}`);
           }}
         >

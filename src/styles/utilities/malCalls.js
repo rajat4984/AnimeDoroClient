@@ -72,3 +72,20 @@ export const getAnimeInfo = async ({ animeId, token }) => {
     console.log(error);
   }
 };
+
+export const searchAnime = async (searchedName) => {
+  if (searchedName !== '') {
+    try {
+      return await axios(`${API_URL}/anime/get-anime-list`, {
+        params: {
+          accessToken: getCookie('mal_access_token'),
+          searchValue: searchedName,
+        },
+      });
+
+  
+    } catch (error) {
+      console.log(error);
+    } 
+  }
+};

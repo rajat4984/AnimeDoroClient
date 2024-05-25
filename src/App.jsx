@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Popup from './components/Popup';
 import AnimePage from './Pages/AnimePage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   getAccessToken,
   getAnimeInfo,
@@ -27,6 +27,8 @@ import UserProfile from './Pages/UserProfile';
 function App() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { isOpen } = useSelector((store) => store.global.popupSettings);
+  const [animeList, setAnimeList] = useState();
+  const [loading, setLoading] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
   const userState = useSelector((store) => store.user);
 
@@ -66,9 +68,8 @@ function App() {
 
         const profileResponse = await getProfileInfo();
         const userAnimeList = await getUserAnimeList();
-        console.log(userAnimeList, 'userAnimeListuser');
         const animeInfo = await getAnimeInfo({
-          animeId: userAnimeList?.data?.data?.slice(0,1)[0]?.node?.id,
+          animeId: userAnimeList?.data?.data?.slice(0, 1)[0]?.node?.id,
           token: tokenResponse.data.access_token,
         });
         const paramsObj = {
@@ -82,8 +83,6 @@ function App() {
 
     getToken();
   }, []);
-
-
 
   useEffect(() => {
     handleCodeChallenge();
@@ -100,8 +99,28 @@ function App() {
       <Routes>
         <Route path="/auth" element={<AuthenticationPage />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/anime" element={<AnimePage />} />
-        <Route path="/animeSearch/:animeName" element={<AnimeList />} />
+        <Route
+          path="/anime"
+          element={
+            <AnimePage
+              loading={loading}
+              setLoading={setLoading}
+              animeList={animeList}
+              setAnimeList={setAnimeList}
+            />
+          }
+        />
+        <Route
+          path="/animeSearch/:animeName"
+          element={
+            <AnimeList
+              animeList={animeList}
+              setAnimeList={setAnimeList}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          }
+        />
         <Route path="anime/:animeId" element={<AnimeInfo />} />
         <Route path="/userProfile" element={<UserProfile />} />
       </Routes>

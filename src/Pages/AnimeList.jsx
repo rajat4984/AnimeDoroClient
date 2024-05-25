@@ -1,41 +1,26 @@
 import { CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/pages/animeList.scss';
 import AnimeSearch from '../components/AnimeSearch';
-import Footer from '../components/Footer';
-const AnimeList = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-  const [loading, setLoading] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const [animeList, setAnimeList] = useState();
+import { searchAnime } from '../styles/utilities/malCalls';
+const AnimeList = ({ animeList, setAnimeList, loading, setLoading }) => {
   let { animeName } = useParams();
+  const handleSearch = async (searchedName) => {
+    try {
+      setLoading(true);
+      const res = await searchAnime(searchedName);
 
-  const searchAnime = async (searchedName) => {
-    setLoading(true);
-    if (searchedName !== '') {
-      try {
-        const res = await axios(`${API_URL}/anime/get-anime-list`, {
-          params: {
-            accessToken: cookies.mal_access_token,
-            searchValue: searchedName,
-          },
-        });
-        console.log(res, 'animesearch');
-        setAnimeList(res.data.data);
-        // return res.data;
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
+      await setAnimeList(res.data.data);
+   
+    } catch (error) {
+      console.log(error);
     }
+    setLoading(false)
   };
 
   useEffect(() => {
-    searchAnime(animeName);
+    handleSearch(animeName);
   }, []);
   return (
     <>
@@ -47,13 +32,16 @@ const AnimeList = () => {
         ) : (
           <>
             <div>
-              <AnimeSearch searchAnime={searchAnime} />
-            </div>
+              <AnimeSearch animeList={animeList} setAnimeList={setAnimeList} loading={loading} setLoading={setLoading} />
+            </div> 
             <div className="grid">
               {animeList?.map((item) => {
-                console.log(item, 'item');
                 return (
-                  <Link to={`/anime/${item.node.id}`} className="anime-card">
+                  <Link
+                    key={item?.node?.id}
+                    to={`/anime/${item.node.id}`}
+                    className="anime-card"
+                  >
                     <div>
                       <img src={item.node.main_picture.large} />
                     </div>

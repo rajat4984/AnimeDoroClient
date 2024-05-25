@@ -24,7 +24,7 @@ const Popup = () => {
             <div className="content">
               <form onSubmit={handleSubmit}>
                 <div className="form-item">
-                  <label for="music">Music</label>
+                  <label htmlFor="music">Music</label>
                   <select
                     onChange={handleOptionsChange}
                     value={music}

@@ -132,6 +132,7 @@ const userSlice = createSlice({
         return initialState;
       });
   },
+  
 });
 
 export { register, login };
