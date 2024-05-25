@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/components/animeSearch.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const AnimeSearch = () => {
   const [searchValue, setSearchValue] = useState('');
-
+  const { animeName } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSearchValue(animeName);
+  }, [animeName]);
 
   return (
     <div className="anime-search">

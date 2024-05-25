@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/pages/animeList.scss';
 import AnimeSearch from '../components/AnimeSearch';
+import Footer from '../components/Footer';
 const AnimeList = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,6 @@ const AnimeList = () => {
 
   const searchAnime = async () => {
     setLoading(true);
-    // alert();
-    console.log(animeName, 'animename');
     if (animeName !== '') {
       try {
         const res = await axios(`${API_URL}/anime/get-anime-list`, {
@@ -39,34 +38,36 @@ const AnimeList = () => {
     searchAnime();
   }, []);
   return (
-    <div className="anime-list">
-      {loading ? (
-        <div className="loader">
-          <CircularProgress size={100} sx={{ color: '#f75151' }} />
-        </div>
-      ) : (
-        <>
-          <div>
-            <AnimeSearch />
+    <>
+      <div className="anime-list">
+        {loading ? (
+          <div className="loader">
+            <CircularProgress size={100} sx={{ color: '#f75151' }} />
           </div>
-          <div className="grid">
-            {animeList?.map((item) => {
-              console.log(item, 'item');
-              return (
-                <Link to={`/anime/${item.node.id}`} className="anime-card">
-                  <div>
-                    <img src={item.node.main_picture.large} />
-                  </div>
-                  <div className="anime-name">
-                    <p>{item.node.title}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            <div>
+              <AnimeSearch />
+            </div>
+            <div className="grid">
+              {animeList?.map((item) => {
+                console.log(item, 'item');
+                return (
+                  <Link to={`/anime/${item.node.id}`} className="anime-card">
+                    <div>
+                      <img src={item.node.main_picture.large} />
+                    </div>
+                    <div className="anime-name">
+                      <p>{item.node.title}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
