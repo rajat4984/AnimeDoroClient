@@ -31,7 +31,15 @@ const LoginForm = () => {
       toast.success('Logged In!');
 
       navigate('/');
+    } else {
+      toast.error(res.payload, {
+        duration: 2000,
+        style: {
+          color: '#f75151',
+        },
+      });
     }
+  
   };
 
   return (

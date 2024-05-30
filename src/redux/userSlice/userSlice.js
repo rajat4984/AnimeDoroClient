@@ -37,8 +37,8 @@ const login = createAsyncThunk(
       });
       return res;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error);
+      console.log(error,'loginerror');
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -126,6 +126,7 @@ const userSlice = createSlice({
     builder
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload
         console.log(action, 'actionr');
       })
       .addCase(PURGE, () => {
