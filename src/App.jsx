@@ -106,7 +106,7 @@ function App() {
               loading={loading}
               setLoading={setLoading}
               animeList={animeList}
-              setAnimeList={setAnimeList}
+              setAnimeList={setAnimeList }
             />
           }
         />
