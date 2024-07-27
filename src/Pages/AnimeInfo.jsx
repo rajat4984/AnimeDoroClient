@@ -1,15 +1,15 @@
-import axios from 'axios';
-import '../styles/pages/animeInfo.scss';
-import React, { useEffect, useState, useTransition } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import { CircularProgress } from '@mui/material';
-import { getAnimeInfo } from './../styles/utilities/malCalls';
-import { IoMdArrowBack } from 'react-icons/io';
-import toast, { Toaster } from 'react-hot-toast';
-import Recommnend from '../components/Recommend';
-import { setCurrentWatching } from '../redux/userSlice/userSlice';
-import { useDispatch } from 'react-redux';
+import axios from "axios";
+import "../styles/pages/animeInfo.scss";
+import React, { useEffect, useState, useTransition } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { CircularProgress } from "@mui/material";
+import { getAnimeInfo } from "./../styles/utilities/malCalls";
+import { IoMdArrowBack } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
+import Recommnend from "../components/Recommend";
+import { setCurrentWatching } from "../redux/userSlice/userSlice";
+import { useDispatch } from "react-redux";
 
 const AnimeInfo = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -45,11 +45,12 @@ const AnimeInfo = () => {
       token: cookies.mal_access_token,
     });
 
+    console.log(res, "resres");
     dispatch(setCurrentWatching(res));
-    toast.success('Anime Added to Current Watching!', {
+    toast.success("Anime Added to Current Watching!", {
       duration: 2000,
       style: {
-        color: '#f75151',
+        color: "#f75151",
       },
     });
   };
@@ -58,7 +59,7 @@ const AnimeInfo = () => {
       <Toaster position="bottom-right" reverseOrder={true} />
       {loading ? (
         <div className="loader">
-          <CircularProgress size={100} sx={{ color: '#f75151' }} />
+          <CircularProgress size={100} sx={{ color: "#f75151" }} />
         </div>
       ) : (
         <>

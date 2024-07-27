@@ -29,9 +29,11 @@ const CurrentWatching = () => {
   };
 
   const nextEpisode = async () => {
+    console.log(currentWatching,'currentWatchinf')
     if (
       currentWatching?.anime?.num_episodes_watched < currentWatching?.totalEp
     ) {
+      console.log("IN if")
       let updatedEpisode = currentWatching?.anime?.num_episodes_watched + 1;
       setCurrentEpisode(updatedEpisode);
       const res = await updateAnimeList(

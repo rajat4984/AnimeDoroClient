@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { PURGE } from 'redux-persist';
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import axios from "axios";
+import { PURGE } from "redux-persist";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,11 +8,11 @@ const initialState = {
   user: {},
   malUser: {},
   isLoading: false,
-  error: '',
+  error: "",
 };
 
 const register = createAsyncThunk(
-  '/auth/register',
+  "/auth/register",
   async (registerForm, { rejectWithValue }) => {
     try {
       const res = await axios.post(`${API_URL}/auth/register`, registerForm, {
@@ -27,7 +27,7 @@ const register = createAsyncThunk(
 );
 
 const login = createAsyncThunk(
-  '/auth/login',
+  "/auth/login",
   async (loginForm, { rejectWithValue }) => {
     try {
       const res = await axios.post(`${API_URL}/auth/login`, loginForm, {
@@ -35,14 +35,14 @@ const login = createAsyncThunk(
       });
       return res;
     } catch (error) {
-      console.log(error,'loginerror');
+      console.log(error, "loginerror");
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setMalUser: (state, action) => {
@@ -63,7 +63,8 @@ const userSlice = createSlice({
     setCurrentWatching: (state, action) => {
       state.malUser.currentWatching = {
         anime: {
-          ...action.payload.my_list_status,
+          num_episodes_watched:
+            action?.payload?.my_list_status?.num_episodes_watched || 0,
           title: action.payload.title,
           main_picture: action.payload.main_picture,
           id: action.payload.id,
@@ -71,15 +72,15 @@ const userSlice = createSlice({
         totalEp: action.payload.num_episodes,
       };
     },
-    updateCurrentWatching:(state,action)=>{
+    updateCurrentWatching: (state, action) => {
       state.malUser.currentWatching = {
         ...state.malUser.currentWatching,
-        anime:{
+        anime: {
           ...state.malUser.currentWatching.anime,
-          num_episodes_watched: action.payload
-        }
-      }
-    }
+          num_episodes_watched: action.payload,
+        },
+      };
+    },
   },
   extraReducers: (builder) => {
     //register
@@ -122,15 +123,15 @@ const userSlice = createSlice({
     builder
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload
+        state.error = action.payload;
       })
       .addCase(PURGE, () => {
         return initialState;
       });
   },
-  
 });
 
 export { register, login };
-export const { setMalUser, setCurrentWatching ,updateCurrentWatching} = userSlice.actions;
+export const { setMalUser, setCurrentWatching, updateCurrentWatching } =
+  userSlice.actions;
 export default userSlice.reducer;
