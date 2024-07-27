@@ -12,7 +12,6 @@ class Recommend extends Component {
 
   render() {
     const { anime } = this.props;
-    console.log(anime, 'anime');
 
     const settings = {
       speed: 350,
@@ -76,7 +75,6 @@ class Recommend extends Component {
               to={`/anime/${item.node.id}`}
               className="anime-card"
             >
-              {console.log(item, 'item')}
               <div className="img-container">
                 <img src={item.node.main_picture.large} alt={item.node.title} />
               </div>

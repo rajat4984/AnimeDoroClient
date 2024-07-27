@@ -27,7 +27,6 @@ const AnimeInfo = () => {
         id: animeId,
         access_token: cookies.mal_access_token,
       });
-      // console.log(res.data, 'animeanime');
       setAnime(res.data);
     } catch (error) {
       console.log(error);

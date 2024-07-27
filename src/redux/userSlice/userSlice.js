@@ -14,7 +14,6 @@ const initialState = {
 const register = createAsyncThunk(
   '/auth/register',
   async (registerForm, { rejectWithValue }) => {
-    console.log(registerForm, 'register');
     try {
       const res = await axios.post(`${API_URL}/auth/register`, registerForm, {
         withCredentials: true,
@@ -22,7 +21,6 @@ const register = createAsyncThunk(
 
       return res;
     } catch (error) {
-      console.log(error, 'regierror');
       return rejectWithValue(error.response.data);
     }
   }
@@ -48,7 +46,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setMalUser: (state, action) => {
-      console.log(action, 'malaction');
       state.malUser = {
         ...action.payload.profile,
         animeList: { ...action.payload.animeList.data },
@@ -75,7 +72,6 @@ const userSlice = createSlice({
       };
     },
     updateCurrentWatching:(state,action)=>{
-      console.log(action,'heloaction')
       state.malUser.currentWatching = {
         ...state.malUser.currentWatching,
         anime:{
@@ -127,7 +123,6 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload
-        console.log(action, 'actionr');
       })
       .addCase(PURGE, () => {
         return initialState;

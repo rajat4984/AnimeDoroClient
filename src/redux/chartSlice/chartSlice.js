@@ -15,7 +15,6 @@ const addPomoData = createAsyncThunk(
   '/users/addPomoData',
   async ({ userId, minutes, token }, { rejectWithValue }) => {
     try {
-      console.log('token', token);
       const res = await axios.post(
         `${API_URL}/users/addPomoData`,
         {
@@ -82,7 +81,6 @@ const chartSlice = createSlice({
     });
     builder.addCase(getPomoData.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload,'actionaction')
       state.data = {
         pomoData: action.payload.pomoData,
         streak: action.payload.streak,

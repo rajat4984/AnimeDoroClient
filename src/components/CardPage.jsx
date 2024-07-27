@@ -13,15 +13,11 @@ import { useEffect, useState } from 'react';
 
 const CardPage = () => {
   const { data: chartData } = useSelector((store) => store.chart);
-  // console.log(chartState, 'chartState');
   const { isOpen: isChartOpen } = useSelector((store) => store.chart);
   const userState = useSelector((store) => store.user);
-  // console.log(data, 'data');
-  // console.log(userState, 'userState');
   const dispatch = useDispatch();
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(7);
-  // const firstSevenData = Data.slice(start, end);
   const [firstSevenData, setFirstSevenData] = useState(
     chartData?.pomoData?.slice(start, end)
   );
@@ -78,7 +74,7 @@ const CardPage = () => {
 
             <p>
               {chartData?.pomoData?.reduce((total, item) => {
-                  console.log(item.TotalTime, 'HEllo');
+            
                   return (total + item.TotalTime) / 60;
                 }, 0)
                 .toFixed(2)}

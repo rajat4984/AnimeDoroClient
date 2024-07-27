@@ -12,8 +12,6 @@ const AnimeLogin = () => {
         params: { challenge: sessionStorage.getItem('codeChallenge') },
       });
 
-      console.log(response, 'response');
-
       const path = `https://myanimelist.net${response.data.path}`;
       window.location.href = path;
     } catch (error) {

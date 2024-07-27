@@ -12,21 +12,18 @@ import {
 const CurrentWatching = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const { currentWatching } = useSelector((store) => store.user.malUser);
-  console.log(currentWatching, 'currentWatching');
   const [currentEpisode, setCurrentEpisode] = useState(
     currentWatching?.anime?.num_episodes_watched
   );
   const dispatch = useDispatch();
   const prevEpisode = async () => {
     if (currentWatching?.anime?.num_episodes_watched >= 0) {
-      console.log('Helloe');
       let updatedEpisode = currentWatching?.anime?.num_episodes_watched - 1;
       setCurrentEpisode(updatedEpisode);
       const res = await updateAnimeList(
         updatedEpisode,
         currentWatching.anime.id
       );
-      console.log(res,'resresres')
       dispatch(updateCurrentWatching(res.data.num_episodes_watched));
     }
   };

@@ -4,7 +4,6 @@ import { getCookie } from './cookies';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const getAccessToken = async (convertedArr) => {
-  console.log('CONVERTED ARR', convertedArr);
   const tokenResponse = await axios.post(
     `${API_URL}/auth/get-token`,
     {
@@ -47,7 +46,6 @@ export const getUserAnimeList = async () => {
 };
 
 export const updateAnimeList = async (updatedEpisode,animeId) => {
-  console.log(updatedEpisode,'updateedepisode')
   try {
     return await axios.put(`${API_URL}/anime/update-anime-list`, {
       updatedEpisode,
@@ -66,7 +64,6 @@ export const getAnimeInfo = async ({ animeId, token }) => {
       id: animeId,
       access_token: token,
     });
-    console.log(res.data, 'animeanime');
     return res.data;
   } catch (error) {
     console.log(error);
