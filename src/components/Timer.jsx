@@ -43,7 +43,7 @@ const Timer = () => {
     <div className="timer">
       <CountdownCircleTimer
         isPlaying={isPlaying}
-        duration={pomoTime * 60}
+        duration={10}
         // duration={5}
         colors={' #f35757'}
         strokeLinecap={'round'}
@@ -58,6 +58,9 @@ const Timer = () => {
             minutes: pomoTime,
             token:cookies.access_token
           };
+
+          console.log(paramsObj,'paramsObj');
+
           dispatch(addPomoData(paramsObj));
         }}
       >

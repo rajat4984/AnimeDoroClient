@@ -1,19 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { PURGE } from 'redux-persist';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { PURGE } from "redux-persist";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const initialState = {
   isOpen: false,
   data: {},
-  error: '',
+  error: "",
   isLoading: false,
 };
 
 const addPomoData = createAsyncThunk(
-  '/users/addPomoData',
+  "/users/addPomoData",
   async ({ userId, minutes, token }, { rejectWithValue }) => {
+    console.log(token, "token");
     try {
       const res = await axios.post(
         `${API_URL}/users/addPomoData`,
@@ -25,6 +26,7 @@ const addPomoData = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       return res;
@@ -36,9 +38,8 @@ const addPomoData = createAsyncThunk(
 );
 
 const getPomoData = createAsyncThunk(
-  '/users/getPomoData',
+  "/users/getPomoData",
   async ({ userId, token }, { rejectWithValue }) => {
-  
     try {
       const res = await axios.post(
         `${API_URL}/users/getPomoData`,
@@ -47,6 +48,7 @@ const getPomoData = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       return res.data;
@@ -58,7 +60,7 @@ const getPomoData = createAsyncThunk(
 );
 
 const chartSlice = createSlice({
-  name: 'chart',
+  name: "chart",
   initialState,
   reducers: {
     toggleCardPage: (state, action) => {
@@ -95,7 +97,6 @@ const chartSlice = createSlice({
         return initialState;
       });
   },
-  
 });
 
 export { addPomoData, getPomoData };
