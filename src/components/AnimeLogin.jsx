@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SiMyanimelist } from "react-icons/si";
 import "../styles/components/animeLogin.scss";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 const AnimeLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
