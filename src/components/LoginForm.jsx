@@ -1,21 +1,21 @@
-import '../styles/components/login.scss';
-import { MdAlternateEmail } from 'react-icons/md';
-import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../redux/userSlice/userSlice';
-import toast, { Toaster } from 'react-hot-toast';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import "../styles/components/login.scss";
+import { MdAlternateEmail } from "react-icons/md";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/userSlice/userSlice";
+import toast, { Toaster } from "react-hot-toast";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [loginForm, setLoginForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const { isLoading } = useSelector((store) => store.user);
-  const [setCookie] = useCookies(['access_token']);
+  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,27 +26,26 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const res = await dispatch(login(loginForm));
-    if (res.type === '/auth/login/fulfilled') {
-      setCookie('access_token', res.payload.headers.authorization);
-      toast.success('Logged In!');
+    if (res.type === "/auth/login/fulfilled") {
+      setCookie("access_token", res.payload.headers.authorization);
+      toast.success("Logged In!");
 
-      navigate('/');
+      navigate("/");
     } else {
       toast.error(res.payload, {
         duration: 2000,
         style: {
-          color: '#f75151',
+          color: "#f75151",
         },
       });
     }
-  
   };
 
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={true} />
       <div className="login-form">
-        <form onSubmit={handleLogin} method={'POST'}>
+        <form onSubmit={handleLogin} method={"POST"}>
           <div className="form-item">
             <input
               placeholder="Email"
@@ -65,7 +64,7 @@ const LoginForm = () => {
               name="password"
               placeholder="Password"
               required
-              type={`${showPass ? 'text' : 'password'}`}
+              type={`${showPass ? "text" : "password"}`}
             ></input>
             {showPass ? (
               <FaRegEye
@@ -80,7 +79,7 @@ const LoginForm = () => {
             )}
           </div>
           {isLoading ? (
-            <CircularProgress sx={{ color: '#f75151' }} />
+            <CircularProgress sx={{ color: "#f75151" }} />
           ) : (
             <button type="submit">Login</button>
           )}

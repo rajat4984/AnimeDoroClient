@@ -109,7 +109,8 @@ const userSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
-
+      console.log(state,'reduxstate');
+      console.log(action,'reduxaction')
       const {
         email,
         username,
