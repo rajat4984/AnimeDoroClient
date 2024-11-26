@@ -15,7 +15,7 @@ const LoginForm = () => {
     password: '',
   });
   const { isLoading } = useSelector((store) => store.user);
-  const [cookies, setCookie, removeCookie] = useCookies(['access_token']);
+  const [setCookie] = useCookies(['access_token']);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
