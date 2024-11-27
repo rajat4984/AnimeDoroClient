@@ -1,17 +1,17 @@
-import '../styles/components/navbar.scss';
-import { RxLapTimer } from 'react-icons/rx';
-import { PiTelevision } from 'react-icons/pi';
-import { VscAccount } from 'react-icons/vsc';
-import { IoSettingsOutline } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
-import { togglePopUp } from '../redux/globalSlice/globalSlice';
-import { Link, useNavigate } from 'react-router-dom';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
-import persistStore from 'redux-persist/es/persistStore';
-import { store } from '../redux/store';
-import { useCookies } from 'react-cookie';
+import "../styles/components/navbar.scss";
+import { RxLapTimer } from "react-icons/rx";
+import { PiTelevision } from "react-icons/pi";
+import { VscAccount } from "react-icons/vsc";
+import { IoSettingsOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { togglePopUp } from "../redux/globalSlice/globalSlice";
+import { Link, useNavigate } from "react-router-dom";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import persistStore from "redux-persist/es/persistStore";
+import { store } from "../redux/store";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -39,14 +39,12 @@ const Navbar = () => {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          "aria-labelledby": "basic-button",
         }}
       >
-        {cookies.access_token ? (
-          <></>
-        ) : (
+        {!cookies.access_token && (
           <MenuItem
-            sx={{ color: '#f75151' }}
+            sx={{ color: "#f75151" }}
             onClick={() => {
               handleClose();
             }}
@@ -56,7 +54,7 @@ const Navbar = () => {
         )}
 
         <MenuItem
-          sx={{ color: '#f75151' }}
+          sx={{ color: "#f75151" }}
           onClick={() => {
             // dispatch(toggleCardPage());
             // dispatch(
@@ -72,16 +70,16 @@ const Navbar = () => {
         </MenuItem>
 
         <MenuItem
-          sx={{ color: '#f75151' }}
+          sx={{ color: "#f75151" }}
           onClick={() => {
             persistor.purge();
-            removeCookie('access_token');
-            removeCookie('mal_access_token');
-            removeCookie('mal_refresh_token');
-            removeCookie('expires_in');
-            removeCookie('refresh_token', { path: '/' });
+            removeCookie("access_token");
+            removeCookie("mal_access_token");
+            removeCookie("mal_refresh_token");
+            removeCookie("expires_in");
+            removeCookie("refresh_token", { path: "/" });
             handleClose();
-            nagivate('/auth');
+            nagivate("/auth");
           }}
         >
           Logout
